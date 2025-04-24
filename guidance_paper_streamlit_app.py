@@ -2429,18 +2429,18 @@ img_stream.seek(0)  # Go to the start of the stream
 doc.add_picture(img_stream, width=Inches(4.5))
 plt.close()
 
-# Save the document
+# Save the document: Initital_check
 
-import io
-doc_io = io.BytesIO()
-doc.save(doc_io)
-doc_io.seek(0)
-st.download_button(
-    label="📄 Download Word Report",
-    data=doc_io,
-    file_name="Summary_Statistics_2019_2023_with_detailed_graphs.docx",
-    mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-)
+#import io
+#doc_io = io.BytesIO()
+#doc.save(doc_io)
+#doc_io.seek(0)
+#st.download_button(
+ #   label="📄 Download Word Report",
+  #  data=doc_io,
+   # file_name="Summary_Statistics_2019_2023_with_detailed_graphs.docx",
+    #mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+#)
 
 
 
@@ -2672,18 +2672,18 @@ for year in years:
     doc.add_heading(f'Year {year}', level=1)
     add_yearly_data(year)
 
-# Save the document
+# Save the document(ishe)
 
-import io
-doc_io = io.BytesIO()
-doc.save(doc_io)
-doc_io.seek(0)
-st.download_button(
-    label="📄 Download Word Report",
-    data=doc_io,
-    file_name="Summary_Statistics_2019_2023_with_detailed_graphs.docx",
-    mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-)
+#import io
+#doc_io = io.BytesIO()
+#doc.save(doc_io)
+#doc_io.seek(0)
+#st.download_button(
+ #   label="📄 Download Word Report",
+  #  data=doc_io,
+   # file_name="Summary_Statistics_2019_2023_with_detailed_graphs.docx",
+    #mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+#)
 
 
 
@@ -2912,16 +2912,16 @@ doc.add_picture(img_stream, width=Inches(4.5))
 
 # Save the document
 
-import io
-doc_io = io.BytesIO()
-doc.save(doc_io)
-doc_io.seek(0)
-st.download_button(
-    label="📄 Download Word Report",
-    data=doc_io,
-    file_name="Summary_Statistics_2019_2023_with_detailed_graphs.docx",
-    mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-)
+#import io
+#doc_io = io.BytesIO()
+#doc.save(doc_io)
+#doc_io.seek(0)
+#st.download_button(
+ #   label="📄 Download Word Report",
+  #  data=doc_io,
+   # file_name="Summary_Statistics_2019_2023_with_detailed_graphs.docx",
+    #mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+#)
 
 
 
