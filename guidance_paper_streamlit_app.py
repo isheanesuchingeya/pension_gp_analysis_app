@@ -45,8 +45,6 @@ pendata_combined = pendata_combined.fillna('..not populated')
 # In[36]:
 
 
-pendata_combined = pd.read_excel("Pension guidance paper report analysis.xlsx")
-
 
      # Clean the column names using pyjanitor's clean_names() function
 pendata_combined = pendata_combined.clean_names()  # Clean the column names (lowercase, replace spaces with underscores)
