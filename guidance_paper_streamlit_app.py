@@ -160,7 +160,7 @@ plt.gca().xaxis.set_major_locator(MaxNLocator(integer=True))
 plt.grid(True)
 
 # Show the plot
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[41]:
@@ -199,7 +199,7 @@ plt.legend(title='Year: Count', loc='upper left', bbox_to_anchor=(1.05, 1), bord
 plt.grid(True, axis='y', linestyle='--', alpha=0.7)
 
 # Show the plot named plt_pension_combined
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[42]:
@@ -280,7 +280,7 @@ plt.xticks(rotation=45)
 
 # Show the plot
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[44]:
@@ -331,7 +331,7 @@ if all(status in status_table.columns for status in filtered_status_types):
 
     # Show the plot
     plt.tight_layout()
-    plt.show()
+    st.pyplot(plt.gcf())
 else:
     print("Some of the status columns are missing from the DataFrame.")
 
@@ -390,7 +390,7 @@ for i, status in enumerate(statuses):
 
 # Adjust layout and display the plot
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[46]:
@@ -473,7 +473,7 @@ plt.xticks(rotation=45)
 
 # Show the plot
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[48]:
@@ -517,7 +517,7 @@ if all(status in assessmentstatus_table.columns for status in filtered_assessmen
 
     # Show the plot
     plt.tight_layout()
-    plt.show()
+    st.pyplot(plt.gcf())
 else:
     print("Some of the status columns are missing from the DataFrame.")
 
@@ -618,7 +618,7 @@ if all(status in approvalstatus_table.columns for status in filtered_approvalsta
 
     # Show the plot
     plt.tight_layout()
-    plt.show()
+    st.pyplot(plt.gcf())
 else:
     print("Some of the approval status columns are missing from the DataFrame.")
 
@@ -701,7 +701,7 @@ table = ax.table(cellText=submission_status_table2019.values, colLabels=submissi
 for (i, j), cell in table.get_celld().items():
     cell.set_edgecolor('black')  # Set the border color
     cell.set_linewidth(1)        # Set the border thickness
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[58]:
@@ -728,7 +728,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[59]:
@@ -740,7 +740,7 @@ pendata_2019['submission_status'].value_counts().plot(kind='pie', autopct='%1.1f
 plt.title('Submission Status Distribution (2019)', fontsize=14)
 plt.ylabel('')  # Remove the ylabel
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[60]:
@@ -762,7 +762,7 @@ plt.xticks(rotation=45)
 
 # Show the plot
 plt.tight_layout()  # Adjust layout for better spacing
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[61]:
@@ -788,7 +788,7 @@ for container in ax.containers:
 
 # Show the plot
 plt.tight_layout()  # Adjust layout for better spacing
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[62]:
@@ -841,7 +841,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[65]:
@@ -862,7 +862,7 @@ plt.title('Assessment Status Distribution (2019)', fontsize=14)
 
 # Show the plot
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[66]:
@@ -959,7 +959,7 @@ plt.xticks(rotation=45, ha='right')
 
 # Show the plot
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[72]:
@@ -969,7 +969,7 @@ plt.show()
 plt.figure(figsize=(8, 8))
 plt.pie(approval_status_counts2019['Count'], labels=approval_status_counts2019['Approval Status'], autopct='%1.1f%%', colors=['#ff9999', '#66b3ff', '#99ff99'])
 plt.title('Approval Status Distribution (2019)', fontsize=14)
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[ ]:
@@ -1063,7 +1063,7 @@ table = ax.table(cellText=submission_status_table2020.values, colLabels=submissi
 for (i, j), cell in table.get_celld().items():
     cell.set_edgecolor('black')  # Set the border color
     cell.set_linewidth(1)        # Set the border thickness
-plt.show()
+st.pyplot(plt.gcf())
 
 
 
@@ -1082,7 +1082,7 @@ table = ax.table(cellText=submission_status_table2020.values, colLabels=submissi
 for (i, j), cell in table.get_celld().items():
     cell.set_edgecolor('black')  # Set the border color
     cell.set_linewidth(1)        # Set the border thickness
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[81]:
@@ -1107,7 +1107,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[82]:
@@ -1119,7 +1119,7 @@ pendata_2020['submission_status'].value_counts().plot(kind='pie', autopct='%1.1f
 plt.title('Submission Status Distribution (2020)', fontsize=14)
 plt.ylabel('')  # Remove the ylabel
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[ ]:
@@ -1173,7 +1173,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[85]:
@@ -1189,7 +1189,7 @@ plt.title('Assessment Status Distribution (2020)', fontsize=14)
 
 # Show the plot
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[86]:
@@ -1292,7 +1292,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[90]:
@@ -1351,7 +1351,7 @@ table = ax.table(cellText=submission_status_table2021.values, colLabels=submissi
 for (i, j), cell in table.get_celld().items():
     cell.set_edgecolor('black')  # Set the border color
     cell.set_linewidth(1)        # Set the border thickness
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[95]:
@@ -1376,7 +1376,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[96]:
@@ -1388,7 +1388,7 @@ pendata_2021['submission_status'].value_counts().plot(kind='pie', autopct='%1.1f
 plt.title('Submission Status Distribution (2021)', fontsize=14)
 plt.ylabel('')  # Remove the ylabel
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[97]:
@@ -1410,7 +1410,7 @@ plt.xticks(rotation=45)
 
 # Show the plot
 plt.tight_layout()  # Adjust layout for better spacing
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[98]:
@@ -1436,7 +1436,7 @@ for container in ax.containers:
 
 # Show the plot
 plt.tight_layout()  # Adjust layout for better spacing
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[99]:
@@ -1484,7 +1484,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[101]:
@@ -1500,7 +1500,7 @@ plt.title('Assessment Status Distribution (2021)', fontsize=14)
 
 # Show the plot
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[102]:
@@ -1578,7 +1578,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[105]:
@@ -1656,7 +1656,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[112]:
@@ -1668,7 +1668,7 @@ pendata_2022['submission_status'].value_counts().plot(kind='pie', autopct='%1.1f
 plt.title('Submission Status Distribution (2022)', fontsize=14)
 plt.ylabel('')  # Remove the ylabel
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[113]:
@@ -1690,7 +1690,7 @@ plt.xticks(rotation=45)
 
 # Show the plot
 plt.tight_layout()  # Adjust layout for better spacing
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[114]:
@@ -1716,7 +1716,7 @@ for container in ax.containers:
 
 # Show the plot
 plt.tight_layout()  # Adjust layout for better spacing
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[115]:
@@ -1764,7 +1764,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[117]:
@@ -1780,7 +1780,7 @@ plt.title('Assessment Status Distribution (2022)', fontsize=14)
 
 # Show the plot
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[118]:
@@ -1860,7 +1860,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[121]:
@@ -1925,7 +1925,7 @@ table = ax.table(cellText=submission_status_table2023.values, colLabels=submissi
 for (i, j), cell in table.get_celld().items():
     cell.set_edgecolor('black')  # Set the border color
     cell.set_linewidth(1)        # Set the border thickness
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[127]:
@@ -1950,7 +1950,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[128]:
@@ -1962,7 +1962,7 @@ pendata_2023['submission_status'].value_counts().plot(kind='pie', autopct='%1.1f
 plt.title('Submission Status Distribution (2023)', fontsize=14)
 plt.ylabel('')  # Remove the ylabel
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[129]:
@@ -1984,7 +1984,7 @@ plt.xticks(rotation=45)
 
 # Show the plot
 plt.tight_layout()  # Adjust layout for better spacing
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[130]:
@@ -2010,7 +2010,7 @@ for container in ax.containers:
 
 # Show the plot
 plt.tight_layout()  # Adjust layout for better spacing
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[131]:
@@ -2058,7 +2058,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[133]:
@@ -2138,7 +2138,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-plt.show()
+st.pyplot(plt.gcf())
 
 
 # In[136]:
@@ -2422,7 +2422,18 @@ doc.add_picture(img_stream, width=Inches(4.5))
 plt.close()
 
 # Save the document
-doc.save('Summary_Statistics_2019_2020_2023_with_direct_graphs.docx')
+
+import io
+doc_io = io.BytesIO()
+doc.save(doc_io)
+doc_io.seek(0)
+st.download_button(
+    label="📄 Download Word Report",
+    data=doc_io,
+    file_name="Summary_Statistics_2019_2023_with_detailed_graphs.docx",
+    mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+)
+
 
 
 # In[139]:
@@ -2654,7 +2665,18 @@ for year in years:
     add_yearly_data(year)
 
 # Save the document
-doc.save('Summary_Statistics_2019_2023_with_direct_graphs.docx')
+
+import io
+doc_io = io.BytesIO()
+doc.save(doc_io)
+doc_io.seek(0)
+st.download_button(
+    label="📄 Download Word Report",
+    data=doc_io,
+    file_name="Summary_Statistics_2019_2023_with_detailed_graphs.docx",
+    mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+)
+
 
 
 # In[ ]:
@@ -2881,7 +2903,18 @@ doc.add_paragraph(
 doc.add_picture(img_stream, width=Inches(4.5))
 
 # Save the document
-doc.save('Summary_Statistics_2019_2023_with_detailed_graphs.docx')
+
+import io
+doc_io = io.BytesIO()
+doc.save(doc_io)
+doc_io.seek(0)
+st.download_button(
+    label="📄 Download Word Report",
+    data=doc_io,
+    file_name="Summary_Statistics_2019_2023_with_detailed_graphs.docx",
+    mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+)
+
 
 
 # In[141]:
@@ -3048,7 +3081,18 @@ for year in range(2019, 2024):
     doc.add_paragraph('\n')
 
 # Save the document
-doc.save('Summary_Statistics_2019_2023_with_detailed_graphs.docx')
+
+import io
+doc_io = io.BytesIO()
+doc.save(doc_io)
+doc_io.seek(0)
+st.download_button(
+    label="📄 Download Word Report",
+    data=doc_io,
+    file_name="Summary_Statistics_2019_2023_with_detailed_graphs.docx",
+    mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+)
+
 
 
 # In[147]:
