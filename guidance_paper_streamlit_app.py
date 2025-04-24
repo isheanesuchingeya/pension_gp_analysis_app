@@ -16,17 +16,15 @@ import janitor
 # In[32]:
 
 
-folder_path = "./Guidance paper analysis"
-
-
 # In[33]:
 
+##################
+uploaded_file = st.file_uploader("Upload the Pension Excel file", type=["xlsx"])
 
-# Read the Excel file
-pendata_combined = pd.read_excel("Pension guidance paper report analysis.xlsx")
-# Print the data
-display(pendata_combined)
+if uploaded_file is not None:
+    pendata_combined = pd.read_excel(uploaded_file)
 
+###########
 
 # In[34]:
 
