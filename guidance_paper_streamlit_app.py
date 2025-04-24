@@ -38,6 +38,14 @@ uploaded_file = st.file_uploader("Upload the Pension Excel file", type=["xlsx"])
 if uploaded_file is not None:
     pendata_combined = pd.read_excel(uploaded_file)
 
+
+
+
+if uploaded_file is None:
+    st.warning("⚠️ Please upload an Excel file to proceed.")
+else:
+    st.success("✅ File uploaded successfully!")
+
 ###########
 
 # In[34]:
