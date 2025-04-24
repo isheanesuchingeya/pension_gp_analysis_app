@@ -33,18 +33,29 @@ st.success("Data processing complete! You can now view the results.")
 # In[33]:
 
 ##################
+# File uploader for the user to upload the Excel file
 uploaded_file = st.file_uploader("Upload the Pension Excel file", type=["xlsx"])
 
 if uploaded_file is not None:
+    # Read the uploaded Excel file
     pendata_combined = pd.read_excel(uploaded_file)
 
-
-
-
-if uploaded_file is None:
-    st.warning("⚠️ Please upload an Excel file to proceed.")
-else:
+    # Notify successful upload
     st.success("✅ File uploaded successfully!")
+
+    # Now you can safely access the columns
+    st.write("Columns in the uploaded data:")
+    st.write(pendata_combined.columns)
+
+    # Continue with your processing logic here
+else:
+    st.warning("⚠️ Please upload an Excel file to proceed.")
+
+
+
+
+
+
 
 ###########
 
