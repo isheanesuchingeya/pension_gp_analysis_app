@@ -39,8 +39,7 @@ pendata_combined.columns
 # Replace all NaN values with '..not populated'
 pendata_combined = pendata_combined.fillna('..not populated')
 
-# Display the updated dataframe
-display(pendata_combined)
+
 
 
 # In[36]:
@@ -620,8 +619,6 @@ approvalstatus_table['Growth (%)'] = approvalstatus_table['Approved'].pct_change
 # Replace NaN in YoY Growth with 0 before formatting
 approvalstatus_table['Growth (%)'] = approvalstatus_table['Growth (%)'].fillna(0)
 
-display(approvalstatus_table)
-
 
 # In[52]:
 
@@ -683,7 +680,7 @@ print(submission_status_table2019)
 submission_status_table2019 = pendata_2019['submission_status'].value_counts().reset_index()
 submission_status_table2019.columns = ['Submission Status', 'Count']
 
-# Display the table with borders
+
 fig, ax = plt.subplots(figsize=(6, 3))
 ax.axis('tight')
 ax.axis('off')
