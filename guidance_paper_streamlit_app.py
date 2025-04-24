@@ -14,6 +14,19 @@ import streamlit as st
 import janitor
 
 
+
+
+####
+# Simulating a long-running task
+with st.spinner('Processing data...'):
+    time.sleep(5)  # Replace this with your actual processing logic
+
+# Notify the user that the process is complete
+st.success("Data processing complete! You can now view the results.")
+#####
+
+
+
 # In[32]:
 
 
