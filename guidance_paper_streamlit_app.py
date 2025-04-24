@@ -2368,7 +2368,7 @@ doc.add_paragraph("The bar chart below illustrates the approval status distribut
 
 # Plotting the bar chart for approval status distribution
 plt.figure(figsize=(4.5, 4.5))  # Adjusted size for better fitting
-bars = plt.bar(approval_status_counts2020['Approval Status'], approval_status_counts2023['Count'], color=['#ffcccc', '#cce6ff'])
+bars = plt.bar(approval_status_counts2020['Approval Status'], approval_status_counts2020['Count'], color=['#ffcccc', '#cce6ff'])
 plt.title('Approval Status Distribution (2020)', fontsize=14)
 plt.xlabel('Approval Status', fontsize=12)
 plt.ylabel('Count', fontsize=12)
