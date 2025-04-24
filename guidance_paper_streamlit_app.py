@@ -15,18 +15,6 @@ import janitor
 
 
 
-
-####
-# Simulating a long-running task
-with st.spinner('Processing data...'):
-    time.sleep(5)  # Replace this with your actual processing logic
-
-# Notify the user that the process is complete
-st.success("Data processing complete! You can now view the results.")
-#####
-
-
-
 # In[32]:
 
 
@@ -43,11 +31,14 @@ if uploaded_file is not None:
     # Notify successful upload
     st.success("✅ File uploaded successfully!")
 
-    # Now you can safely access the columns
+    # Display the columns of the uploaded data
     st.write("Columns in the uploaded data:")
     st.write(pendata_combined.columns)
 
-    # Continue with your processing logic here
+    # You can continue with your processing logic here
+    # For example, displaying the first few rows of the DataFrame
+    st.write(pendata_combined.head())
+
 else:
     st.warning("⚠️ Please upload an Excel file to proceed.")
 
@@ -3112,12 +3103,19 @@ st.download_button(
     mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
 )
 
-
-
-# In[147]:
-
-
 end_time = time.time()
 run_time = end_time - start_time
 print(f"Total run time: {run_time:.2f} seconds")
+
+# In[147]:
+####
+# Simulating a long-running task
+with st.spinner('Processing data...'):
+    time.sleep(5)  # Replace this with your actual processing logic
+
+# Notify the user that the process is complete
+st.success("Data processing complete! You can now view the results,{run_time:.2f} seconds")
+#####
+
+
 
