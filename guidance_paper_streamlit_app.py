@@ -2143,8 +2143,6 @@ plt.show()
 # In[137]:
 
 
-pip install python-docx matplotlib
-
 
 # In[ ]:
 
