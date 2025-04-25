@@ -20,7 +20,7 @@ import janitor
   #  st.title("Statistics & Report Generating Model")
    # st.header("⚙️ Settings")
 
-Section = st.sidebar.radio("Pensions", "Life","Insurance","Other")
+Section = st.sidebar.radio("Years", ["2019","2020","2021","2022","2023","2024"])
 
 
 # In[32]:
