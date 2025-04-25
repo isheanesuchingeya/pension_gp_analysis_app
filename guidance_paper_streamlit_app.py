@@ -14,7 +14,7 @@ import streamlit as st
 import janitor
 
 # Set page config
-st.set_page_config(page_title="Actuarial Department Model- Pensions Statistics", layout="wide")
+#st.set_page_config(page_title="Actuarial Department Model- Pensions Statistics", layout="wide")
 
 #with st.sidebar:
   #  st.title("Statistics & Report Generating Model")
