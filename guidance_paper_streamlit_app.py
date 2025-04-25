@@ -14,11 +14,11 @@ import streamlit as st
 import janitor
 
 # Set page config
-st.set_page_config(page_title="Actuarial Department Model- Pensions Statistics", layout="wide")
+#st.set_page_config(page_title="Actuarial Department Model- Pensions Statistics", layout="wide")
 
-with st.sidebar:
-    st.title("Statistics & Report Generating Model")
-    st.header("⚙️ Settings")
+#with st.sidebar:
+  #  st.title("Statistics & Report Generating Model")
+   # st.header("⚙️ Settings")
 
 
 # In[32]:
@@ -47,12 +47,6 @@ if uploaded_file is not None:
 
 else:
     st.warning("⚠️ Please upload an Excel file to proceed.")
-
-
-
-
-
-
 
 ###########
 
