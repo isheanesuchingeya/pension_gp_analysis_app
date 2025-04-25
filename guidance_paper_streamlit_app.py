@@ -1,9 +1,6 @@
 8#!/usr/bin/env python
 # coding: utf-8
 
-# In[31]:
-
-
 import time
 start_time = time.time()
 import pandas as pd 
@@ -23,12 +20,6 @@ import janitor
 Section = st.sidebar.radio("Years", ["2019","2020","2021","2022","2023","2024"])
 
 
-# In[32]:
-
-
-# In[33]:
-
-##################
 # File uploader for the user to upload the Excel file
 uploaded_file = st.file_uploader("Upload the Pension Excel file", type=["xlsx"])
 
@@ -51,41 +42,14 @@ else:
     st.warning("⚠️ Please upload an Excel file to proceed.")
 
 ###########
-
-# In[34]:
-
-
-pendata_combined.columns
-
-
-# In[35]:
-
-
 # Replace all NaN values with '..not populated'
 pendata_combined = pendata_combined.fillna('..not populated')
-
-
-
-
-# In[36]:
-
-
 
      # Clean the column names using pyjanitor's clean_names() function
 pendata_combined = pendata_combined.clean_names()  # Clean the column names (lowercase, replace spaces with underscores)
      # Shorten column names 
 pendata_combined.columns = pendata_combined.columns.str.replace("department", "drpt")
 pendata_combined.columns = pendata_combined.columns.str.replace("status", "sts")
-
-
-# In[37]:
-
-
-pendata_combined.columns
-
-
-# In[38]:
-
 
 # List of years
 pensionyears_list = [2019, 2020, 2021, 2022, 2023]
@@ -109,9 +73,6 @@ year_count_table = year_count_table.style.set_table_styles(
 
 # Display the styled table with borders and formatted YoY Growth
 year_count_table
-
-
-# In[39]:
 
 
 # List of years
@@ -147,10 +108,6 @@ year_count_table_styled = year_count_table.style.set_table_styles(
 # Display the styled table with borders and formatted YoY Growth
 year_count_table_styled
 
-
-# In[40]:
-
-
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 
@@ -173,9 +130,6 @@ plt.grid(True)
 
 # Show the plot
 st.pyplot(plt.gcf())
-
-
-# In[41]:
 
 
 from matplotlib.ticker import MaxNLocator
@@ -212,10 +166,6 @@ plt.grid(True, axis='y', linestyle='--', alpha=0.7)
 
 # Show the plot named plt_pension_combined
 st.pyplot(plt.gcf())
-
-
-# In[42]:
-
 
 # Initialize an empty dictionary to store counts for each status
 status_counts = {}
@@ -266,10 +216,6 @@ status_table_styled = status_table.style.set_table_styles(
 # Display the styled table
 status_table_styled
 
-
-# In[43]:
-
-
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -295,16 +241,11 @@ plt.tight_layout()
 st.pyplot(plt.gcf())
 
 
-# In[44]:
-
-
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Set the style for seaborn
 sns.set(style="whitegrid")
-
-
 
 # Filter the status types to only include 'Done', 'Pending', and 'Partial'
 filtered_status_types = ['Submitted', 'Pending', 'Partial']
@@ -316,8 +257,6 @@ if all(status in status_table.columns for status in filtered_status_types):
                                                    value_vars=filtered_status_types, 
                                                    var_name='Status', 
                                                    value_name='Count')
-
-
 
     # Create the bar plot
     plt.figure(figsize=(12, 8))
@@ -346,9 +285,6 @@ if all(status in status_table.columns for status in filtered_status_types):
     st.pyplot(plt.gcf())
 else:
     print("Some of the status columns are missing from the DataFrame.")
-
-
-# In[45]:
 
 
 import matplotlib.pyplot as plt
@@ -404,10 +340,6 @@ for i, status in enumerate(statuses):
 plt.tight_layout()
 st.pyplot(plt.gcf())
 
-
-# In[46]:
-
-
 import pandas as pd
 
 # Initialize an empty dictionary to store counts for each status
@@ -462,9 +394,6 @@ assessmentstatus_table_styled = assessmentstatus_table.style.set_table_styles(
 assessmentstatus_table_styled
 
 
-# In[47]:
-
-
 # Set the style for seaborn (optional but for better visuals)
 sns.set(style="whitegrid")
 
@@ -486,9 +415,6 @@ plt.xticks(rotation=45)
 # Show the plot
 plt.tight_layout()
 st.pyplot(plt.gcf())
-
-
-# In[48]:
 
 
 import seaborn as sns
@@ -532,9 +458,6 @@ if all(status in assessmentstatus_table.columns for status in filtered_assessmen
     st.pyplot(plt.gcf())
 else:
     print("Some of the status columns are missing from the DataFrame.")
-
-
-# In[49]:
 
 
 import pandas as pd
@@ -588,9 +511,6 @@ approvalstatus_table_styled = approvalstatus_table.style.set_table_styles(
 approvalstatus_table_styled
 
 
-# In[50]:
-
-
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -635,22 +555,13 @@ else:
     print("Some of the approval status columns are missing from the DataFrame.")
 
 
-# In[51]:
-
-
 approvalstatus_table['Growth (%)'] = approvalstatus_table['Approved'].pct_change() * 100
 # Replace NaN in YoY Growth with 0 before formatting
 approvalstatus_table['Growth (%)'] = approvalstatus_table['Growth (%)'].fillna(0)
 
 
-# In[52]:
-
-
 approvalstatus_table['Proportion Approved'] = approvalstatus_table['Approved'] / approvalstatus_table['Approved'].sum()
 sns.barplot(data=approvalstatus_table, x='Year', y='Proportion Approved', color='blue')
-
-
-# In[53]:
 
 
 # Loop through each column to handle NaN replacement
@@ -670,14 +581,8 @@ pendata_combined.loc[pendata_combined.year==2019]
 
 
 
-# In[54]:
-
-
 # Filter data for 2019
 pendata_2019 = pendata_combined[pendata_combined['year'] == 2019]
-
-
-# In[55]:
 
 
 # Map the submission statuses to new categories
@@ -687,16 +592,10 @@ pendata_2019['submission_status'] = pendata_2019['submission_sts_'].apply(
 )
 
 
-# In[56]:
-
-
 # Create a table of submission status counts
 submission_status_table2019 = pendata_2019['submission_status'].value_counts().reset_index()
 submission_status_table2019.columns = ['Submission Status', 'Count']
 print(submission_status_table2019)
-
-
-# In[57]:
 
 
 # Create a table of submission status counts
@@ -714,9 +613,6 @@ for (i, j), cell in table.get_celld().items():
     cell.set_edgecolor('black')  # Set the border color
     cell.set_linewidth(1)        # Set the border thickness
 st.pyplot(plt.gcf())
-
-
-# In[58]:
 
 
 import matplotlib.pyplot as plt
@@ -742,10 +638,6 @@ for bar in bars:
 plt.tight_layout()
 st.pyplot(plt.gcf())
 
-
-# In[59]:
-
-
 # Pie chart
 plt.figure(figsize=(6, 6))
 pendata_2019['submission_status'].value_counts().plot(kind='pie', autopct='%1.1f%%', colors=['#66b3ff', '#99ff99', '#ffcc99'], startangle=90)
@@ -753,9 +645,6 @@ plt.title('Submission Status Distribution (2019)', fontsize=14)
 plt.ylabel('')  # Remove the ylabel
 plt.tight_layout()
 st.pyplot(plt.gcf())
-
-
-# In[60]:
 
 
 # Group by 'administrator' and 'submission_status', then unstack to reshape for the bar chart
@@ -775,10 +664,6 @@ plt.xticks(rotation=45)
 # Show the plot
 plt.tight_layout()  # Adjust layout for better spacing
 st.pyplot(plt.gcf())
-
-
-# In[61]:
-
 
 # Group by 'name_of_fund', 'sts' and 'submission_sts_', then unstack to reshape for the bar chart
 fund_status_submission2019 = pendata_2019.groupby([ 'sts', 'submission_sts_']).size().unstack().fillna(0)
@@ -803,16 +688,10 @@ plt.tight_layout()  # Adjust layout for better spacing
 st.pyplot(plt.gcf())
 
 
-# In[62]:
-
-
 # Classify the assessment status in 2019
 pendata_2019['assessment_status_category'] = pendata_2019['assessment_sts'].apply(
     lambda x: 'Assessed' if x == 'Done' else ('Pending' if x == 'Pending' else 'Other')
 )
-
-
-# In[63]:
 
 
 # Perform counts for assessment status categories in 2019
@@ -828,10 +707,6 @@ assementstatusstyled_table2019 = assessment_status_table_2019.style.set_table_st
 
 # Display the styled table
 assementstatusstyled_table2019 
-
-
-
-# In[64]:
 
 
 # Get the counts for each assessment status category
@@ -1908,9 +1783,6 @@ submission_status_table2023.columns = ['Submission Status', 'Count']
 print(submission_status_table2023)
 
 
-# In[125]:
-
-
 # Map the submission statuses to new categories
 pendata_2023['submission_status'] = pendata_2023['submission_sts_'].apply(
     lambda x: 'Submitted' if x == 'Done' else ('Partial' if x == 'Partial' else 'Pending')
@@ -1920,9 +1792,6 @@ pendata_2023['submission_status'] = pendata_2023['submission_sts_'].apply(
 submission_status_table2023 = pendata_2023['submission_status'].value_counts().reset_index()
 submission_status_table2023.columns = ['Submission Status', 'Count']
 print(submission_status_table2023)
-
-
-# In[126]:
 
 
 # Display the table with borders
@@ -1965,8 +1834,6 @@ plt.tight_layout()
 st.pyplot(plt.gcf())
 
 
-# In[128]:
-
 
 # Pie chart
 plt.figure(figsize=(6, 6))
@@ -1976,8 +1843,6 @@ plt.ylabel('')  # Remove the ylabel
 plt.tight_layout()
 st.pyplot(plt.gcf())
 
-
-# In[129]:
 
 
 # Group by 'administrator' and 'submission_status', then unstack to reshape for the bar chart
@@ -1997,9 +1862,6 @@ plt.xticks(rotation=45)
 # Show the plot
 plt.tight_layout()  # Adjust layout for better spacing
 st.pyplot(plt.gcf())
-
-
-# In[130]:
 
 
 # Group by 'name_of_fund', 'sts' and 'submission_sts_', then unstack to reshape for the bar chart
@@ -2025,8 +1887,6 @@ plt.tight_layout()  # Adjust layout for better spacing
 st.pyplot(plt.gcf())
 
 
-# In[131]:
-
 
 # Classify the assessment status in 2023
 pendata_2023['assessment_status_category'] = pendata_2023['assessment_sts'].apply(
@@ -2046,9 +1906,6 @@ assementstatusstyled_table2023 = assessment_status_table_2023.style.set_table_st
 
 # Display the styled table
 assementstatusstyled_table2023
-
-
-# In[132]:
 
 
 # Get the counts for each assessment status category
@@ -2073,8 +1930,6 @@ plt.tight_layout()
 st.pyplot(plt.gcf())
 
 
-# In[133]:
-
 
 # Count the occurrences of each report location
 report_location_counts2023 = pendata_2023['report_location'].value_counts().reset_index()
@@ -2096,7 +1951,6 @@ reportlocationstyled_table2023 = report_location_counts2023.style.set_table_styl
 reportlocationstyled_table2023
 
 
-# In[134]:
 
 
 # Create a new column for approval status categories based on the given criteria
@@ -2131,7 +1985,6 @@ styled_approval_status_table2023 = approval_status_counts2023.style.set_table_st
 styled_approval_status_table2023
 
 
-# In[135]:
 
 
 # Plotting the bar chart for approval status categories
@@ -2151,38 +2004,6 @@ for bar in bars:
 # Show the plot
 plt.tight_layout()
 st.pyplot(plt.gcf())
-
-
-# In[136]:
-
-
-#3END END END
-
-
-# In[137]:
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[138]:
-
 
 # Import necessary libraries
 import pandas as pd
@@ -2448,8 +2269,6 @@ plt.close()
 
 
 
-# In[139]:
-
 
 # Import necessary libraries
 import pandas as pd
@@ -2676,28 +2495,7 @@ for year in years:
     doc.add_heading(f'Year {year}', level=1)
     add_yearly_data(year)
 
-# Save the document(ishe)
 
-#import io
-#doc_io = io.BytesIO()
-#doc.save(doc_io)
-#doc_io.seek(0)
-#st.download_button(
- #   label="📄 Download Word Report",
-  #  data=doc_io,
-   # file_name="Summary_Statistics_2019_2023_with_detailed_graphs.docx",
-    #mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-#)
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[140]:
 
 
 from io import BytesIO
@@ -3008,10 +2806,6 @@ new_dataframe2021 = filtered_data2021[selected_columns]
 # Display the new DataFrame
 new_dataframe2021
 
-
-# In[145]:
-
-
 # Filter the data based on 'approval_sts' equal to 'No' and 'year' equal to 2022
 filtered_data2022 = pendata_combined[(pendata_combined['approval_sts'] == 'pending') & (pendata_combined['year'] == 2022)]
 
@@ -3027,12 +2821,6 @@ new_dataframe2022 = filtered_data2022[selected_columns]
 
 # Display the new DataFrame
 new_dataframe2022
-
-
-
-
-# In[146]:
-
 
 from docx import Document
 from docx.shared import Inches
@@ -3109,15 +2897,10 @@ end_time = time.time()
 run_time = end_time - start_time
 print(f"Total run time: {run_time:.2f} seconds")
 
-# In[147]:
 ####
 # Simulating a long-running task
 with st.spinner('Processing data...'):
     time.sleep(5)  # Replace this with your actual processing logic
 
 # Notify the user that the process is complete
-st.success("Data processing complete! You can now view the results,{run_time:.2f} seconds")
-#####
-
-
-
+st.write.success("Data processing complete! You can now view the results,{run_time:.2f} seconds")
