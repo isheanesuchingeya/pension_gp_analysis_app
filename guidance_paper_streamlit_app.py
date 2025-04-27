@@ -250,7 +250,6 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 ##st.pyplot(plt.gcf())
 plt.close(fig) 
-Set the style for seaborn
 sns.set(style="whitegrid")
 
  ##################################################################################################################################################3            
