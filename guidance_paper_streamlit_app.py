@@ -14,10 +14,34 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 ###########################################################################################################################################################
                                                                   ##Display : Front End##
-Section = st.sidebar.radio("Years", ["2019","2020","2021","2022","2023","2024"])
+#Section = st.sidebar.radio("Years", ["2019","2020","2021","2022","2023","2024"])
 
+# --- PAGE SETTINGS ---
+st.set_page_config(page_title="Pension Fund Dashboard", layout="wide", page_icon="📊")
 
+# --- HIDE STREAMLIT DEFAULT MENU ---
+hide_streamlit_style = """
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    </style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
+# --- SIDEBAR ---
+st.sidebar.title("Settings ⚙️")
+st.sidebar.subheader("Upload your file")
+uploaded_file = st.sidebar.file_uploader("Upload Pension Excel File", type=["xlsx"])
+selected_year = st.sidebar.selectbox("Select Year", ["All", 2019, 2020, 2021, 2022, 2023, 2024])
+
+# --- HEADER ---
+st.title("Pension Fund Dashboard 📊")
+st.markdown("""
+Welcome to the Pension Monitoring System! 
+Analyze submissions, assessment status, approval trends, and more.
+""")
+st.divider()
 ###########################################################################################################################################################
                                                                       ##Data Import & Cleaning##
 # File uploader for the user to upload the Excel file
