@@ -102,8 +102,7 @@ st.divider()
 ###########################################################################################################################################################
                                                                       ##Data Import & Cleaning##
 # File uploader for the user to upload the Excel file
-pendata_combined = None
-uploaded_file = st.file_uploader("Upload the Pension Excel file", type=["xlsx"])
+uploaded_file = st.file_uploader("Upload the Guidance Paper Database Excel file", type=["xlsx"])
 if uploaded_file is not None:
     # Read the uploaded Excel file
     pendata_combined = pd.read_excel(uploaded_file)
