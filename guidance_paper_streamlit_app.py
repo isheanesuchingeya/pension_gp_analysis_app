@@ -15,6 +15,42 @@ import seaborn as sns
 from docx import Document
 from docx.shared import Inches
 import io
+import streamlit as st
+from datetime import datetime
+import bcrypt
+
+########################################3
+# Mock database
+users_db = {
+    "user1": bcrypt.hashpw("password1".encode('utf-8'), bcrypt.gensalt()),
+    "user2": bcrypt.hashpw("password2".encode('utf-8'), bcrypt.gensalt()),
+}
+
+# Set page title
+st.title("Pension Fund Dashboard")
+
+# Create a login form
+st.subheader("Login")
+name = st.text_input("Enter your name:")
+password = st.text_input("Enter your password:", type='password')
+
+# Create a button to submit the form
+if st.button("Login"):
+    if name in users_db and bcrypt.checkpw(password.encode('utf-8'), users_db[name]):
+        # Display today's date and a greeting
+        today_date = datetime.now().strftime("%B %d, %Y")
+        st.success(f"Hello, {name}! Today's date is {today_date}.")
+        
+        # Continue with the rest of your dashboard here
+        st.write("Welcome to the dashboard!")
+    else:
+        st.error("Invalid name or password.")
+
+# Password recovery option
+st.subheader("Forgot Password?")
+if st.button("Reset Password"):
+    st.info("Please contact support to reset your password.")
+########################################
 ###########################################################################################################################################################
                                                                   ##Display : Front End##
 #Section = st.sidebar.radio("Years", ["2019","2020","2021","2022","2023","2024"])
