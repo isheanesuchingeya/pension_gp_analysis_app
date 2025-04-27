@@ -43,7 +43,7 @@ st.sidebar.subheader("Upload your file")
 selected_year = st.sidebar.selectbox("Select Year", ["All", 2019, 2020, 2021, 2022, 2023, 2024])
 
 # --- HEADER ---
-st.title("Actuarial Department- Pensions Guidance Paper Report 📊")
+st.title("Pensions Guidance Paper Report Engine 📊")
 st.markdown("""
 Welcome to the Pensions Guidance Paper Monitoring System! 
 Analyze submissions, assessment , approval trends, and more.
@@ -59,7 +59,7 @@ if uploaded_file is not None:
 
     # Notify successful upload
     st.success("✅ File uploaded successfully!")
-    st.write(pendata_combined.head(3))
+   
 # Replace all NaN values with '..not populated'
     pendata_combined = pendata_combined.fillna('..not populated')
 
@@ -68,6 +68,7 @@ if uploaded_file is not None:
      # Shorten column names 
     pendata_combined.columns = pendata_combined.columns.str.replace("department", "drpt")
     pendata_combined.columns = pendata_combined.columns.str.replace("status", "sts")
+    st.write(pendata_combined.head(3))
 else:
     st.warning("⚠️ Please upload an Excel file to proceed.")
 ###########################################################################################################################################################
