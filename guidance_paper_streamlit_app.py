@@ -51,10 +51,6 @@ Analyze submissions, assessment status, approval trends, and more.
 """)
 st.divider()
 
-# --- Start timer at the beginning ---
-start_time = time.time()
-st.sidebar.info("⏳ Model is running... Please download your report once completed.")
-
 # --- LOAD DATA ---
 if uploaded_file is not None:
     pendata_combined = pd.read_excel(uploaded_file)
@@ -72,15 +68,12 @@ if uploaded_file is not None:
 
 else:
     st.warning("⚠️ Please upload an Excel file to proceed.")
-
-# --- End Timer at the very bottom ---
-end_time = time.time()
-elapsed_time = round(end_time - start_time, 2)
-st.sidebar.success(f"✅ Model completed in {elapsed_time} seconds! 🎉")
-st.balloons()
-
 ###########################################################################################################################################################
                                                       ##Analysis##
+# --- Start timer at the beginning ---
+start_time = time.time()
+st.sidebar.info("⏳ Model is running... Please download your report once completed.")
+
 # List of years
 pensionyears_list = [2019, 2020, 2021, 2022, 2023]
 
