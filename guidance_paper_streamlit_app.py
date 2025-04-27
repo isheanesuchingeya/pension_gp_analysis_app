@@ -44,7 +44,7 @@ st.sidebar.header("Options")
 page = st.sidebar.selectbox("Select a page(Work in Progress):", ["Home", "Data Upload", "Visualizations","About"])
 if page == "About":
   st.title("About This App")
-    st.markdown("""
+  st.markdown("""
     This application was developed by the **Actuarial Department** to provide insights into pension fund submissions and approval statuses.
     
     **Date Developed:** January 2023  
