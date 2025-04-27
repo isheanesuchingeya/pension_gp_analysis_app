@@ -897,26 +897,6 @@ plt.title('Approval Status Distribution (2019)', fontsize=14)
 st.pyplot(plt.gcf())
 
 
-# In[ ]:
-
-
-
-
-
-# In[73]:
-
-
-#2020 2020 2020 2020 2020 2020 2020 2020 2020 2020 2020 2020 2020
-
-
-# In[ ]:
-
-
-
-
-
-# In[74]:
-
 
 # Loop through each column to handle NaN replacement
 for col in pendata_combined.columns:
@@ -930,12 +910,6 @@ for col in pendata_combined.columns:
 
 
 
-pendata_combined.loc[pendata_combined.year==2020]
-
-
-
-# In[75]:
-
 
 # Loop through each column to handle NaN replacement
 for col in pendata_combined.columns:
@@ -946,32 +920,15 @@ for col in pendata_combined.columns:
     else:
         # Fill NaN in non-numeric columns with 'Not Populated'
         pendata_combined[col].fillna('Not Populated', inplace=True)
-
-
-# In[76]:
-
-
-pendata_combined.loc[pendata_combined.year == 2020]
-
-
-# In[77]:
 
 
 # Filter data for 2020
 pendata_2020 = pendata_combined[pendata_combined['year'] == 2020]
-
-
-# In[78]:
-
-
 # Map the submission statuses to new categories
 pendata_2020['submission_status'] = pendata_2020['submission_sts_'].apply(
     lambda x: 'Submitted' if x == 'Done' else ('Partial' if x == 'Partial' else ('Pending' if x == 'Pending' else 'Other'))
 
 )
-
-
-# In[79]:
 
 
 # Create a table of submission status counts
@@ -991,10 +948,6 @@ for (i, j), cell in table.get_celld().items():
 st.pyplot(plt.gcf())
 
 
-
-# In[80]:
-
-
 # Display the table with borders
 import matplotlib.pyplot as plt
 
@@ -1009,8 +962,6 @@ for (i, j), cell in table.get_celld().items():
     cell.set_linewidth(1)        # Set the border thickness
 st.pyplot(plt.gcf())
 
-
-# In[81]:
 
 
 # Bar chart with different colors and count labels
@@ -1035,9 +986,6 @@ plt.tight_layout()
 st.pyplot(plt.gcf())
 
 
-# In[82]:
-
-
 # Pie chart
 plt.figure(figsize=(6, 6))
 pendata_2020['submission_status'].value_counts().plot(kind='pie', autopct='%1.1f%%', colors=['#66b3ff', '#99ff99', '#ffcc99'], startangle=90)
@@ -1045,16 +993,6 @@ plt.title('Submission Status Distribution (2020)', fontsize=14)
 plt.ylabel('')  # Remove the ylabel
 plt.tight_layout()
 st.pyplot(plt.gcf())
-
-
-# In[ ]:
-
-
-
-
-
-# In[83]:
-
 
 # Classify the assessment status in 2020
 pendata_2020['assessment_status_category'] = pendata_2020['assessment_sts'].apply(
@@ -2764,10 +2702,6 @@ doc.add_picture(img_stream, width=Inches(4.5))
 #)
 
 
-
-# In[141]:
-
-
 # Filter the data based on 'approval_sts' equal to 'No' and 'year' equal to 2023
 filtered_data2023 = pendata_combined[(pendata_combined['approval_sts'] == 'No') & (pendata_combined['year'] == 2023)]
 
@@ -2780,12 +2714,6 @@ selected_columns = [
 
 # Create the new DataFrame with the selected columns
 new_dataframe2023 = filtered_data2023[selected_columns]
-
-# Display the new DataFrame
-new_dataframe2023
-
-
-# In[142]:
 
 
 # Filter the data based on 'approval_sts' equal to 'No' and 'year' equal to 2023
@@ -2801,13 +2729,6 @@ selected_columns = [
 # Create the new DataFrame with the selected columns
 new_dataframe19 = filtered_data[selected_columns]
 
-# Display the new DataFrame
-new_dataframe19
-
-
-# In[143]:
-
-
 # Filter the data based on 'approval_sts' equal to 'No' and 'year' equal to 2020
 filtered_data = pendata_combined[(pendata_combined['approval_sts'] == 'No') & (pendata_combined['year'] == 2020)]
 
@@ -2820,13 +2741,6 @@ selected_columns = [
 
 # Create the new DataFrame with the selected columns
 new_dataframe20 = filtered_data[selected_columns]
-
-# Display the new DataFrame
-new_dataframe20
-
-
-# In[144]:
-
 
 # Filter the data based on 'approval_sts' equal to 'No' and 'year' equal to 2021
 filtered_data2021 = pendata_combined[(pendata_combined['approval_sts'] == 'pending') & (pendata_combined['year'] == 2021)]
@@ -2841,8 +2755,6 @@ selected_columns = [
 # Create the new DataFrame with the selected columns
 new_dataframe2021 = filtered_data2021[selected_columns]
 
-# Display the new DataFrame
-new_dataframe2021
 
 # Filter the data based on 'approval_sts' equal to 'No' and 'year' equal to 2022
 filtered_data2022 = pendata_combined[(pendata_combined['approval_sts'] == 'pending') & (pendata_combined['year'] == 2022)]
@@ -2856,9 +2768,6 @@ selected_columns = [
 
 # Create the new DataFrame with the selected columns
 new_dataframe2022 = filtered_data2022[selected_columns]
-
-# Display the new DataFrame
-new_dataframe2022
 
 from docx import Document
 from docx.shared import Inches
