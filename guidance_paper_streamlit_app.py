@@ -853,8 +853,6 @@ report_location_counts2020 = pendata_2020['report_location'].value_counts().rese
 # Rename the columns for clarity
 report_location_counts2020.columns = ['Report Location', 'Count']
 
-# Display the result
-print(report_location_counts2020)
 
 # Apply border styling to the report location count table
 reportlocationstyled_table2020 = report_location_counts2020.style.set_table_styles(
@@ -862,36 +860,18 @@ reportlocationstyled_table2020 = report_location_counts2020.style.set_table_styl
      {'selector': 'th', 'props': [('border', '2px solid black')]}, 
      {'selector': 'td', 'props': [('border', '2px solid black')]}]
 )
-
-# Display the styled table
-reportlocationstyled_table2020
-
-
-# In[87]:
-
 
 # Count the occurrences of each report location
 report_location_counts2020 = pendata_2020['report_location'].value_counts().reset_index()
 
 # Rename the columns for clarity
 report_location_counts2020.columns = ['Report Location', 'Count']
-
-# Display the result
-print(report_location_counts2020)
-
 # Apply border styling to the report location count table
 reportlocationstyled_table2020 = report_location_counts2020.style.set_table_styles(
     [{'selector': 'table', 'props': [('border', '2px solid black')]}, 
      {'selector': 'th', 'props': [('border', '2px solid black')]}, 
      {'selector': 'td', 'props': [('border', '2px solid black')]}]
 )
-
-# Display the styled table
-reportlocationstyled_table2020
-
-
-# In[88]:
-
 
 # Create a new column for approval status categories based on the given criteria
 def categorize_approval_status(status):
@@ -911,9 +891,6 @@ pendata_2020['approval_status_category'] = pendata_2020['approval_sts'].apply(ca
 approval_status_counts2020 = pendata_2020['approval_status_category'].value_counts().reset_index()
 approval_status_counts2020.columns = ['Approval Status', 'Count']
 
-# Display the result
-print(approval_status_counts2020)
-
 # Apply border styling to the approval status count table
 styled_approval_status_table2020 = approval_status_counts2020.style.set_table_styles(
     [{'selector': 'table', 'props': [('border', '2px solid black')]}, 
@@ -921,13 +898,7 @@ styled_approval_status_table2020 = approval_status_counts2020.style.set_table_st
      {'selector': 'td', 'props': [('border', '2px solid black')]}]
 )
 
-# Display the styled table
-styled_approval_status_table2020
-
-
-# In[89]:
-
-
+##################################################################################################################################################################
 # Plotting the bar chart for approval status categories
 plt.figure(figsize=(7, 6))
 bars = plt.bar(approval_status_counts2020['Approval Status'], approval_status_counts2020['Count'], color='#ff9999')
@@ -941,14 +912,10 @@ plt.ylabel('Count', fontsize=12)
 for bar in bars:
     plt.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.05, 
              f'{int(bar.get_height())}', ha='center', fontsize=10)
-
 # Show the plot
 plt.tight_layout()
 ##st.pyplot(plt.gcf())
-
-
-# In[90]:
-
+##################################################################################################################################################################
 
 # Loop through each column to handle NaN replacement
 for col in pendata_combined.columns:
@@ -961,20 +928,8 @@ for col in pendata_combined.columns:
         pendata_combined[col].fillna('Not Populated', inplace=True)
 
 
-# In[91]:
-
-
-pendata_combined.loc[pendata_combined.year == 2021]
-
-
-# In[92]:
-
-
 # Filter data for 2021
 pendata_2021 = pendata_combined[pendata_combined['year'] == 2021]
-
-
-# In[93]:
 
 
 # Map the submission statuses to new categories
@@ -985,15 +940,8 @@ pendata_2021['submission_status'] = pendata_2021['submission_sts_'].apply(
 # Create a table of submission status counts
 submission_status_table2021 = pendata_2021['submission_status'].value_counts().reset_index()
 submission_status_table2021.columns = ['Submission Status', 'Count']
-print(submission_status_table2021)
 
-
-# In[94]:
-
-
-# Display the table with borders
-import matplotlib.pyplot as plt
-
+##################################################################################################################################################################
 fig, ax = plt.subplots(figsize=(6, 3))
 ax.axis('tight')
 ax.axis('off')
@@ -1005,10 +953,7 @@ for (i, j), cell in table.get_celld().items():
     cell.set_linewidth(1)        # Set the border thickness
 ##st.pyplot(plt.gcf())
 
-
-# In[95]:
-
-
+##################################################################################################################################################################
 # Bar chart with different colors and count labels
 colors = ['#66b3ff', '#99ff99', '#ffcc99']  # Define different colors for each bar
 fig, ax = plt.subplots(figsize=(8, 5))
@@ -1029,11 +974,7 @@ for bar in bars:
 # Show the plot
 plt.tight_layout()
 ##st.pyplot(plt.gcf())
-
-
-# In[96]:
-
-
+##################################################################################################################################################################
 # Pie chart
 plt.figure(figsize=(6, 6))
 pendata_2021['submission_status'].value_counts().plot(kind='pie', autopct='%1.1f%%', colors=['#66b3ff', '#99ff99', '#ffcc99'], startangle=90)
@@ -1041,10 +982,7 @@ plt.title('Submission Status Distribution (2021)', fontsize=14)
 plt.ylabel('')  # Remove the ylabel
 plt.tight_layout()
 ##st.pyplot(plt.gcf())
-
-
-# In[97]:
-
+##################################################################################################################################################################
 
 # Group by 'administrator' and 'submission_status', then unstack to reshape for the bar chart
 administrator_submission2021 = pendata_2021.groupby(['administrator', 'submission_status']).size().unstack().fillna(0)
@@ -1063,10 +1001,7 @@ plt.xticks(rotation=45)
 # Show the plot
 plt.tight_layout()  # Adjust layout for better spacing
 ##st.pyplot(plt.gcf())
-
-
-# In[98]:
-
+##################################################################################################################################################################
 
 # Group by 'name_of_fund', 'sts' and 'submission_sts_', then unstack to reshape for the bar chart
 fund_status_submission2021 = pendata_2021.groupby([ 'sts', 'submission_sts_']).size().unstack().fillna(0)
@@ -1109,14 +1044,7 @@ assementstatusstyled_table2021 = assessment_status_table_2021.style.set_table_st
      {'selector': 'th', 'props': [('border', '2px solid black')]}, 
      {'selector': 'td', 'props': [('border', '2px solid black')]}]
 )
-
-# Display the styled table
-assementstatusstyled_table2021
-
-
-# In[100]:
-
-
+##################################################################################################################################################################
 # Get the counts for each assessment status category
 assessment_status_counts_2021 = pendata_2021['assessment_status_category'].value_counts()
 
@@ -1137,10 +1065,7 @@ for bar in bars:
 # Show the plot
 plt.tight_layout()
 ##st.pyplot(plt.gcf())
-
-
-# In[101]:
-
+##################################################################################################################################################################
 
 # Plotting the pie chart for assessment status distribution
 plt.figure(figsize=(8, 8))
@@ -1153,19 +1078,12 @@ plt.title('Assessment Status Distribution (2021)', fontsize=14)
 # Show the plot
 plt.tight_layout()
 ##st.pyplot(plt.gcf())
-
-
-# In[102]:
-
-
+##################################################################################################################################################################
 # Count the occurrences of each report location
 report_location_counts2021 = pendata_2021['report_location'].value_counts().reset_index()
 
 # Rename the columns for clarity
 report_location_counts2021.columns = ['Report Location', 'Count']
-
-# Display the result
-print(report_location_counts2021)
 
 # Apply border styling to the report location count table
 reportlocationstyled_table2021 = report_location_counts2021.style.set_table_styles(
@@ -1173,14 +1091,7 @@ reportlocationstyled_table2021 = report_location_counts2021.style.set_table_styl
      {'selector': 'th', 'props': [('border', '2px solid black')]}, 
      {'selector': 'td', 'props': [('border', '2px solid black')]}]
 )
-
-# Display the styled table
-reportlocationstyled_table2021
-
-
-# In[103]:
-
-
+##################################################################################################################################################################
 # Create a new column for approval status categories based on the given criteria
 def categorize_approval_status(status):
     if status == 'Yes':
@@ -1197,8 +1108,6 @@ pendata_2021['approval_status_category'] = pendata_2021['approval_sts'].apply(ca
 approval_status_counts2021 = pendata_2021['approval_status_category'].value_counts().reset_index()
 approval_status_counts2021.columns = ['Approval Status', 'Count']
 
-# Display the result
-print(approval_status_counts2021)
 
 # Apply border styling to the approval status count table
 styled_approval_status_table2021 = approval_status_counts2021.style.set_table_styles(
@@ -1206,13 +1115,6 @@ styled_approval_status_table2021 = approval_status_counts2021.style.set_table_st
      {'selector': 'th', 'props': [('border', '2px solid black')]}, 
      {'selector': 'td', 'props': [('border', '2px solid black')]}]
 )
-
-# Display the styled table
-styled_approval_status_table2021
-
-
-# In[104]:
-
 
 # Plotting the bar chart for approval status categories
 plt.figure(figsize=(7, 6))
@@ -1231,16 +1133,7 @@ for bar in bars:
 # Show the plot
 plt.tight_layout()
 ##st.pyplot(plt.gcf())
-
-
-# In[105]:
-
-
-#2022 2022 2022 2022 2022 2022 2022 2022 2022 2022 2022 2022 2022 2022 
-
-
-# In[106]:
-
+##################################################################################################################################################################
 
 # Loop through each column to handle NaN replacement
 for col in pendata_combined.columns:
@@ -1253,26 +1146,11 @@ for col in pendata_combined.columns:
         pendata_combined[col].fillna('Not Populated', inplace=True)
 
 
-# In[107]:
-
-
-pendata_combined.loc[pendata_combined.year == 2022]
-
-
-# In[108]:
-
-
-pendata_combined.columns
-
-
-# In[109]:
 
 
 # Filter data for 2022
 pendata_2022 = pendata_combined[pendata_combined['year'] == 2022]
 
-
-# In[110]:
 
 
 # Map the submission statuses to new categories
@@ -1284,9 +1162,6 @@ pendata_2022['submission_status'] = pendata_2022['submission_sts_'].apply(
 submission_status_table2022 = pendata_2022['submission_status'].value_counts().reset_index()
 submission_status_table2022.columns = ['Submission Status', 'Count']
 print(submission_status_table2022)
-
-
-# In[111]:
 
 
 # Bar chart with different colors and count labels
@@ -1309,11 +1184,7 @@ for bar in bars:
 # Show the plot
 plt.tight_layout()
 ##st.pyplot(plt.gcf())
-
-
-# In[112]:
-
-
+##################################################################################################################################################################
 # Pie chart
 plt.figure(figsize=(6, 6))
 pendata_2022['submission_status'].value_counts().plot(kind='pie', autopct='%1.1f%%', colors=['#66b3ff', '#99ff99', '#ffcc99'], startangle=90)
@@ -1321,10 +1192,7 @@ plt.title('Submission Status Distribution (2022)', fontsize=14)
 plt.ylabel('')  # Remove the ylabel
 plt.tight_layout()
 ##st.pyplot(plt.gcf())
-
-
-# In[113]:
-
+##################################################################################################################################################################
 
 # Group by 'administrator' and 'submission_status', then unstack to reshape for the bar chart
 administrator_submission2022 = pendata_2022.groupby(['administrator', 'submission_status']).size().unstack().fillna(0)
@@ -1343,11 +1211,7 @@ plt.xticks(rotation=45)
 # Show the plot
 plt.tight_layout()  # Adjust layout for better spacing
 ##st.pyplot(plt.gcf())
-
-
-# In[114]:
-
-
+##################################################################################################################################################################
 # Group by 'name_of_fund', 'sts' and 'submission_sts_', then unstack to reshape for the bar chart
 fund_status_submission2022 = pendata_2022.groupby([ 'sts', 'submission_sts_']).size().unstack().fillna(0)
 
@@ -1369,10 +1233,7 @@ for container in ax.containers:
 # Show the plot
 plt.tight_layout()  # Adjust layout for better spacing
 ##st.pyplot(plt.gcf())
-
-
-# In[115]:
-
+##################################################################################################################################################################
 
 # Classify the assessment status in 2022
 pendata_2022['assessment_status_category'] = pendata_2022['assessment_sts'].apply(
@@ -1389,12 +1250,6 @@ assementstatusstyled_table2022 = assessment_status_table_2022.style.set_table_st
      {'selector': 'th', 'props': [('border', '2px solid black')]}, 
      {'selector': 'td', 'props': [('border', '2px solid black')]}]
 )
-
-# Display the styled table
-assementstatusstyled_table2022
-
-
-# In[116]:
 
 
 # Get the counts for each assessment status category
@@ -1418,9 +1273,7 @@ for bar in bars:
 plt.tight_layout()
 ##st.pyplot(plt.gcf())
 
-
-# In[117]:
-
+##################################################################################################################################################################
 
 # Plotting the pie chart for assessment status distribution
 plt.figure(figsize=(8, 8))
@@ -1433,10 +1286,7 @@ plt.title('Assessment Status Distribution (2022)', fontsize=14)
 # Show the plot
 plt.tight_layout()
 ##st.pyplot(plt.gcf())
-
-
-# In[118]:
-
+##################################################################################################################################################################
 
 # Count the occurrences of each report location
 report_location_counts2022 = pendata_2022['report_location'].value_counts().reset_index()
@@ -1444,22 +1294,12 @@ report_location_counts2022 = pendata_2022['report_location'].value_counts().rese
 # Rename the columns for clarity
 report_location_counts2022.columns = ['Report Location', 'Count']
 
-# Display the result
-print(report_location_counts2022)
-
 # Apply border styling to the report location count table
 reportlocationstyled_table2022 = report_location_counts2022.style.set_table_styles(
     [{'selector': 'table', 'props': [('border', '2px solid black')]}, 
      {'selector': 'th', 'props': [('border', '2px solid black')]}, 
      {'selector': 'td', 'props': [('border', '2px solid black')]}]
 )
-
-# Display the styled table
-reportlocationstyled_table2022
-
-
-# In[119]:
-
 
 # Create a new column for approval status categories based on the given criteria
 def categorize_approval_status(status):
@@ -1479,9 +1319,6 @@ pendata_2022['approval_status_category'] = pendata_2022['approval_sts'].apply(ca
 approval_status_counts2022 = pendata_2022['approval_status_category'].value_counts().reset_index()
 approval_status_counts2022.columns = ['Approval Status', 'Count']
 
-# Display the result
-print(approval_status_counts2022)
-
 # Apply border styling to the approval status count table
 styled_approval_status_table2022 = approval_status_counts2022.style.set_table_styles(
     [{'selector': 'table', 'props': [('border', '2px solid black')]}, 
@@ -1489,12 +1326,7 @@ styled_approval_status_table2022 = approval_status_counts2022.style.set_table_st
      {'selector': 'td', 'props': [('border', '2px solid black')]}]
 )
 
-# Display the styled table
-styled_approval_status_table2022
-
-
-# In[120]:
-
+##################################################################################################################################################################
 
 # Plotting the bar chart for approval status categories
 plt.figure(figsize=(7, 6))
@@ -1513,30 +1345,11 @@ for bar in bars:
 # Show the plot
 plt.tight_layout()
 ##st.pyplot(plt.gcf())
-
-
-# In[121]:
-
-
-pendata_combined.loc[pendata_combined.year == 2023]
-
-
-# In[122]:
-
-
-pendata_combined.columns
-
-
-# In[123]:
-
-
+##################################################################################################################################################################
 # Filter data for 2023
 pendata_2023 = pendata_combined[pendata_combined['year'] == 2023]
 
 
-# In[124]:
-
-
 # Map the submission statuses to new categories
 pendata_2023['submission_status'] = pendata_2023['submission_sts_'].apply(
     lambda x: 'Submitted' if x == 'Done' else ('Partial' if x == 'Partial' else 'Pending')
@@ -1556,12 +1369,7 @@ pendata_2023['submission_status'] = pendata_2023['submission_sts_'].apply(
 # Create a table of submission status counts
 submission_status_table2023 = pendata_2023['submission_status'].value_counts().reset_index()
 submission_status_table2023.columns = ['Submission Status', 'Count']
-print(submission_status_table2023)
-
-
-# Display the table with borders
-import matplotlib.pyplot as plt
-
+##################################################################################################################################################################
 fig, ax = plt.subplots(figsize=(6, 3))
 ax.axis('tight')
 ax.axis('off')
@@ -1572,11 +1380,7 @@ for (i, j), cell in table.get_celld().items():
     cell.set_edgecolor('black')  # Set the border color
     cell.set_linewidth(1)        # Set the border thickness
 ##st.pyplot(plt.gcf())
-
-
-# In[127]:
-
-
+##################################################################################################################################################################
 # Bar chart with different colors and count labels
 colors = ['#66b3ff', '#99ff99', '#ffcc99']  # Define different colors for each bar
 fig, ax = plt.subplots(figsize=(8, 5))
@@ -1598,7 +1402,7 @@ for bar in bars:
 plt.tight_layout()
 ##st.pyplot(plt.gcf())
 
-
+##################################################################################################################################################################
 
 # Pie chart
 plt.figure(figsize=(6, 6))
@@ -1609,7 +1413,7 @@ plt.tight_layout()
 ##st.pyplot(plt.gcf())
 
 
-
+##################################################################################################################################################################
 # Group by 'administrator' and 'submission_status', then unstack to reshape for the bar chart
 administrator_submission2023 = pendata_2023.groupby(['administrator', 'submission_status']).size().unstack().fillna(0)
 
@@ -1668,10 +1472,7 @@ assementstatusstyled_table2023 = assessment_status_table_2023.style.set_table_st
      {'selector': 'th', 'props': [('border', '2px solid black')]}, 
      {'selector': 'td', 'props': [('border', '2px solid black')]}]
 )
-
-# Display the styled table
-assementstatusstyled_table2023
-
+##################################################################################################################################################################
 
 # Get the counts for each assessment status category
 assessment_status_counts_2023 = pendata_2023['assessment_status_category'].value_counts()
@@ -1702,20 +1503,13 @@ report_location_counts2023 = pendata_2023['report_location'].value_counts().rese
 # Rename the columns for clarity
 report_location_counts2023.columns = ['Report Location', 'Count']
 
-# Display the result
-print(report_location_counts2023)
-
 # Apply border styling to the report location count table
 reportlocationstyled_table2023 = report_location_counts2023.style.set_table_styles(
     [{'selector': 'table', 'props': [('border', '2px solid black')]}, 
      {'selector': 'th', 'props': [('border', '2px solid black')]}, 
      {'selector': 'td', 'props': [('border', '2px solid black')]}]
 )
-
-# Display the styled table
-reportlocationstyled_table2023
-
-
+##################################################################################################################################################################
 
 
 # Create a new column for approval status categories based on the given criteria
@@ -1735,9 +1529,7 @@ pendata_2023['approval_status_category'] = pendata_2023['approval_sts'].apply(ca
 # Count the occurrences of each approval status category
 approval_status_counts2023 = pendata_2023['approval_status_category'].value_counts().reset_index()
 approval_status_counts2023.columns = ['Approval Status', 'Count']
-
-# Display the result
-print(approval_status_counts2023)
+##################################################################################################################################################################
 
 # Apply border styling to the approval status count table
 styled_approval_status_table2023 = approval_status_counts2023.style.set_table_styles(
@@ -1745,9 +1537,7 @@ styled_approval_status_table2023 = approval_status_counts2023.style.set_table_st
      {'selector': 'th', 'props': [('border', '2px solid black')]}, 
      {'selector': 'td', 'props': [('border', '2px solid black')]}]
 )
-
-# Display the styled table
-styled_approval_status_table2023
+##################################################################################################################################################################
 
 
 
@@ -2553,10 +2343,6 @@ selected_columns = [
 # Create the new DataFrame with the selected columns
 new_dataframe2022 = filtered_data2022[selected_columns]
 
-from docx import Document
-from docx.shared import Inches
-
-
 # Add a title or section heading to the Word document
 doc.add_heading('Data for Funds with No Approval (2019-2023)', level=1)
 
@@ -2610,9 +2396,8 @@ for year in range(2019, 2024):
 
     # Add a line break between the years' data
     doc.add_paragraph('\n')
-
+##################################################################################################################################################################
 # Save the document
-
 import io
 doc_io = io.BytesIO()
 doc.save(doc_io)
@@ -2623,12 +2408,3 @@ st.download_button(
     file_name="Summary_Statistics_2019_2023_with_detailed_graphs.docx",
     mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
 )
-
-end_time = time.time()
-run_time = end_time - start_time
-print(f"Total run time: {run_time:.2f} seconds")
-
-####
-# Simulating a long-running task
-with st.spinner('Processing data...'):
-    time.sleep(5)  # Replace this with your actual processing logic
