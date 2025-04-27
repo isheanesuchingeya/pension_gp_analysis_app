@@ -35,13 +35,12 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 # --- SIDEBAR ---
-#from PIL import Image
-#logo = Image.open("IPECLOGO.jpg")
-#st.sidebar.image(logo, width=200)
+logo = Image.open("IPECLOGO.jpg")
+st.sidebar.image(logo, width=200)
 st.sidebar.title("Settings ⚙️")
 st.sidebar.subheader("Upload your file")
 uploaded_file = st.sidebar.file_uploader("Upload Pension Excel File", type=["xlsx"])
-selected_year = st.sidebar.selectbox("Select Year", ["All", 2019, 2020, 2021, 2022, 2023, 2024])
+#selected_year = st.sidebar.selectbox("Select Year", ["All", 2019, 2020, 2021, 2022, 2023, 2024])
 
 # --- HEADER ---
 st.title("Pension Fund Dashboard 📊")
@@ -62,10 +61,6 @@ if uploaded_file is not None:
     st.success("✅ File uploaded successfully!")
     st.write("Sample of Imported Data")
     st.write(pendata_combined.head(3))
-
-    # Now continue your plotting, graphs, download etc
-    # st.line_chart(pendata_combined) etc.
-
 else:
     st.warning("⚠️ Please upload an Excel file to proceed.")
 ###########################################################################################################################################################
