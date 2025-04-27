@@ -101,9 +101,6 @@ year_count_table_styled = year_count_table.style.set_table_styles(
      {'selector': 'tr', 'props': [('border', '1px solid black')]}]
 )
 
-# Display the styled table with borders and formatted YoY Growth
-year_count_table_styled.head(2)
-
 
 
 # Create the plot (using plt.figure() or plt.subplots() if needed)
@@ -115,8 +112,6 @@ plt.ylabel('Count', fontsize=12)
 plt.gca().xaxis.set_major_locator(MaxNLocator(integer=True))
 plt.grid(True)
 st.pyplot(plt.gcf())
-
-
 
 
 
@@ -204,14 +199,9 @@ plt.xlabel('Year', fontsize=12)
 plt.ylabel('Count', fontsize=12)
 plt.legend(title='Status', loc='upper right')
 plt.xticks(rotation=45)
-
-# Show the plot
 plt.tight_layout()
 st.pyplot(plt.gcf())
 
-
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 # Set the style for seaborn
 sns.set(style="whitegrid")
@@ -256,13 +246,8 @@ else:
     print("Some of the status columns are missing from the DataFrame.")
 
 
-import matplotlib.pyplot as plt
-import numpy as np
-
 # Define the statuses we want to plot
 statuses = [ 'Dissolution','Other', 'Exemption','New fund', 'Troubled',]
-
-# Create a new DataFrame suitable for a grouped bar chart
 status_counts_by_year = {}
 
 # Loop through each year and extract counts for each status
