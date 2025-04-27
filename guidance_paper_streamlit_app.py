@@ -281,7 +281,7 @@ if all(status in status_table.columns for status in filtered_status_types):
                     xytext=(0, 5), textcoords='offset points')
     plt.tight_layout()
     #ic###st.pyplot(plt.gcf())
-    plt.close(fig) 
+   
 else:
     print("Some of the status columns are missing from the DataFrame.")
 ############################################################################################################################################################
