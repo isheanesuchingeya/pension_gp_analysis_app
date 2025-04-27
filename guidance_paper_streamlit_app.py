@@ -41,7 +41,20 @@ st.sidebar.title("Settings ⚙️")
 st.sidebar.subheader("Upload your file")
 st.sidebar.title("Navigation")
 st.sidebar.header("Options")
-page = st.sidebar.selectbox("Select a page(Work in Progress):", ["Home", "Data Upload", "Visualizations"])
+page = st.sidebar.selectbox("Select a page(Work in Progress):", ["Home", "Data Upload", "Visualizations","About"])
+if page == "About":
+  st.title("About This App")
+    st.markdown("""
+    This application was developed by the **Actuarial Department** to provide insights into pension fund submissions and approval statuses.
+    
+    **Date Developed:** January 2023  
+    **Last Updated:** April 2025  
+    **Version:** 1.0  
+    **Contact:** actuarial@company.com
+
+    We aim to make data analysis accessible and informative for all stakeholders.
+    """)
+  
 #uploaded_file = st.sidebar.file_uploader("Upload Pension Excel File", type=["xlsx"])
 selected_year = st.sidebar.selectbox("Select Year (W.I.P)", ["All", 2019, 2020, 2021, 2022, 2023, 2024])
 
