@@ -1,6 +1,5 @@
-8#!/usr/bin/env python
-# coding: utf-8
-
+###########################################################################################################################################################
+                                                                      ## Packages##
 import time
 start_time = time.time()
 import pandas as pd 
@@ -9,20 +8,20 @@ import openpyxl
 import os
 import streamlit as st
 import janitor
-
-# Set page config
-#st.set_page_config(page_title="Actuarial Department Model- Pensions Statistics", layout="wide")
-
-#with st.sidebar:
-  #  st.title("Statistics & Report Generating Model")
-   # st.header("⚙️ Settings")
-
+import matplotlib.pyplot as plt
+from matplotlib.ticker import MaxNLocator
+import matplotlib.pyplot as plt
+import seaborn as sns
+###########################################################################################################################################################
+                                                                  ##Display : Front End##
 Section = st.sidebar.radio("Years", ["2019","2020","2021","2022","2023","2024"])
 
 
+
+###########################################################################################################################################################
+                                                                      ##Data Import & Cleaning##
 # File uploader for the user to upload the Excel file
 uploaded_file = st.file_uploader("Upload the Pension Excel file", type=["xlsx"])
-
 if uploaded_file is not None:
     # Read the uploaded Excel file
     pendata_combined = pd.read_excel(uploaded_file)
@@ -41,7 +40,8 @@ if uploaded_file is not None:
 else:
     st.warning("⚠️ Please upload an Excel file to proceed.")
 
-###########
+
+
 # Replace all NaN values with '..not populated'
 pendata_combined = pendata_combined.fillna('..not populated')
 
@@ -50,7 +50,8 @@ pendata_combined = pendata_combined.clean_names()  # Clean the column names (low
      # Shorten column names 
 pendata_combined.columns = pendata_combined.columns.str.replace("department", "drpt")
 pendata_combined.columns = pendata_combined.columns.str.replace("status", "sts")
-
+###########################################################################################################################################################
+                                                      ##Analysis##
 # List of years
 pensionyears_list = [2019, 2020, 2021, 2022, 2023]
 
@@ -74,9 +75,6 @@ year_count_table = year_count_table.style.set_table_styles(
 # Display the styled table with borders and formatted YoY Growth
 year_count_table
 
-
-# List of years
-pensionyears_list = [2019, 2020, 2021, 2022, 2023]
 
 # Initialize an empty dictionary to store the counts
 pensionyear_counts = {}
@@ -108,75 +106,47 @@ year_count_table_styled = year_count_table.style.set_table_styles(
 # Display the styled table with borders and formatted YoY Growth
 year_count_table_styled
 
-import matplotlib.pyplot as plt
-from matplotlib.ticker import MaxNLocator
+
 
 # Create the plot (using plt.figure() or plt.subplots() if needed)
 plt.figure(figsize=(10, 6))
-
-# Plot the data for PensionCombined
 plt.plot(year_count_table['Year'], year_count_table['Count'], marker='o', color='b', linestyle='-', linewidth=2, markersize=6)
-
-# Add labels and title
 plt.title('Expected Number of Submissions', fontsize=14)  
 plt.xlabel('Year', fontsize=12)
 plt.ylabel('Count', fontsize=12)
-
-# Use MaxNLocator to format the x-axis labels to avoid commas and make them whole numbers
 plt.gca().xaxis.set_major_locator(MaxNLocator(integer=True))
-
-# Add gridlines
 plt.grid(True)
-
-# Show the plot
 st.pyplot(plt.gcf())
 
 
-from matplotlib.ticker import MaxNLocator
-import numpy as np
+
 
 
 # Create the plot and assign it to a variable named plt_pension_combined
 plt_pension_combined = plt.figure(figsize=(10, 6))
-
-#  list of colors to use for each bar
 colors = ['#FF6347', '#4682B4', '#32CD32', '#FFD700', '#8A2BE2']  
-
-# Plot the data as a bar chart with different colors for each bar
 bars = plt.bar(year_count_table['Year'], year_count_table['Count'], color=colors, width=0.5)
-
-# Add labels and title
 plt.title('Expected number of submissions', fontsize=14)  # Title for the specific plot
 plt.xlabel('Year', fontsize=12)
 plt.ylabel('Count', fontsize=12)
-
 # Use MaxNLocator to ensure the x-axis labels are whole numbers without commas
 plt.gca().xaxis.set_major_locator(MaxNLocator(integer=True))
-
-# to create a label for each bar and assign it manually to the legend
 for i, bar in enumerate(bars):
     bar.set_label(f'{year_count_table["Year"][i]}: {int(bar.get_height())}')  # Set label for each bar
-
-# Add the legend on the right side of the plot
 plt.legend(title='Year: Count', loc='upper left', bbox_to_anchor=(1.05, 1), borderaxespad=0.)
-
-
-# Display the graph with the specific name
 plt.grid(True, axis='y', linestyle='--', alpha=0.7)
-
-# Show the plot named plt_pension_combined
 st.pyplot(plt.gcf())
+
+
+
 
 # Initialize an empty dictionary to store counts for each status
 status_counts = {}
-
 # List of status types we're interested in
 status_types = ['Done', 'Partial', 'Pending', 'Troubled', 'Dissolution', 'New fund', 'exemption']
-
 # Loop through each year and count the occurrences of each status
 for year in pendata_combined['year'].unique():
-    year_data = pendata_combined[pendata_combined['year'] == year]
-    
+    year_data = pendata_combined[pendata_combined['year'] == year]  
     # Initialize a dictionary to store counts for this year
     year_status_counts = {
         'Year': year,
@@ -191,6 +161,8 @@ for year in pendata_combined['year'].unique():
     }
     
     status_counts[year] = year_status_counts
+
+
 
 # Convert the status_counts dictionary to a DataFrame
 status_table = pd.DataFrame(status_counts).T  # .T to transpose the dictionary to a DataFrame
@@ -216,8 +188,7 @@ status_table_styled = status_table.style.set_table_styles(
 # Display the styled table
 status_table_styled
 
-import matplotlib.pyplot as plt
-import seaborn as sns
+
 
 # Set the style for seaborn (optional but for better visuals)
 sns.set(style="whitegrid")
