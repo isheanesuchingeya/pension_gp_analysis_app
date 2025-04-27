@@ -163,7 +163,7 @@ with st.container():
       ax.set_ylabel('')  # Remove the default label
       ax.set_title('Submission Status Distribution', fontsize=14)  # Add a title
       ax.legend(counts.index, title='Status', bbox_to_anchor=(1.05, 1), loc='upper left')  # Add legend
-      #st.pyplot(fig)
+      st.pyplot(fig)
 
 st.subheader("Assessment and Approval Status")
 with st.container():
@@ -175,7 +175,7 @@ with st.container():
         ax.set_title('Assessment Status')
         ax.set_xlabel('Assessment')
         ax.set_ylabel('Count')
-        ##st.pyplot(fig)
+        st.pyplot(fig)
 
     with col4:
         fig, ax = plt.subplots(figsize=(8, 5))
@@ -183,7 +183,7 @@ with st.container():
         ax.set_title('Approval Status')
         ax.set_xlabel('Approval')
         ax.set_ylabel('Count')
-        #st.pyplot(fig)
+        st.pyplot(fig)
 
 #################################################################
 
