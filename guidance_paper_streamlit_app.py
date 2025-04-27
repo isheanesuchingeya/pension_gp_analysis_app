@@ -183,15 +183,6 @@ with st.container():
         st.pyplot(fig)
 
 #################################################################
-# Create the plot (using plt.figure() or plt.subplots() if needed)
-plt.figure(figsize=(10, 6))
-plt.plot(year_count_table['Year'], year_count_table['Count'], marker='o', color='b', linestyle='-', linewidth=2, markersize=6)
-plt.title('Expected Number of Submissions', fontsize=14)  
-plt.xlabel('Year', fontsize=12)
-plt.ylabel('Count', fontsize=12)
-plt.gca().xaxis.set_major_locator(MaxNLocator(integer=True))
-plt.grid(True)
-st.pyplot(plt.gcf())
 
 # Initialize an empty dictionary to store counts for each status
 status_counts = {}
@@ -350,7 +341,6 @@ for i, status in enumerate(statuses):
 plt.tight_layout()
 st.pyplot(plt.gcf())
 
-import pandas as pd
 
 # Initialize an empty dictionary to store counts for each status
 assessmentstatus_counts = {}
