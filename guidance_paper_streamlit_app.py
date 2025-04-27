@@ -2879,6 +2879,3 @@ print(f"Total run time: {run_time:.2f} seconds")
 # Simulating a long-running task
 with st.spinner('Processing data...'):
     time.sleep(5)  # Replace this with your actual processing logic
-
-# Notify the user that the process is complete
-st.write.success("Data processing complete! You can now view the results,{run_time:.2f} seconds")
