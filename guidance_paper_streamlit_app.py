@@ -18,39 +18,6 @@ import io
 import streamlit as st
 from datetime import datetime
 import bcrypt
-
-########################################3
-# Mock database
-users_db = {
-    "user1": bcrypt.hashpw("password1".encode('utf-8'), bcrypt.gensalt()),
-    "user2": bcrypt.hashpw("password2".encode('utf-8'), bcrypt.gensalt()),
-}
-
-# Set page title
-st.title("Pension Fund Dashboard")
-
-# Create a login form
-st.subheader("Login")
-name = st.text_input("Enter your name:")
-password = st.text_input("Enter your password:", type='password')
-
-# Create a button to submit the form
-if st.button("Login"):
-    if name in users_db and bcrypt.checkpw(password.encode('utf-8'), users_db[name]):
-        # Display today's date and a greeting
-        today_date = datetime.now().strftime("%B %d, %Y")
-        st.success(f"Hello, {name}! Today's date is {today_date}.")
-        
-        # Continue with the rest of your dashboard here
-        st.write("Welcome to the dashboard!")
-    else:
-        st.error("Invalid name or password.")
-
-# Password recovery option
-st.subheader("Forgot Password?")
-if st.button("Reset Password"):
-    st.info("Please contact support to reset your password.")
-########################################
 ###########################################################################################################################################################
                                                                   ##Display : Front End##
 #Section = st.sidebar.radio("Years", ["2019","2020","2021","2022","2023","2024"])
@@ -81,6 +48,12 @@ Welcome to the Pension Monitoring System!
 Analyze submissions, assessment status, approval trends, and more.
 """)
 st.divider()
+
+def show_running_status(process_text="Processing... Please wait.", success_text="Done! 🎉"):
+    with st.spinner(f"🔄 {process_text}"):
+        time.sleep(3)  # simulate a time-consuming task
+    st.success(success_text)
+    st.balloons()
 ###########################################################################################################################################################
                                                                       ##Data Import & Cleaning##
 # File uploader for the user to upload the Excel file
@@ -129,9 +102,6 @@ year_count_table = year_count_table.style.set_table_styles(
      {'selector': 'td', 'props': [('border', '1px solid black')]},
      {'selector': 'tr', 'props': [('border', '1px solid black')]}]
 )
-
-
-
 # Initialize an empty dictionary to store the counts
 pensionyear_counts = {}
 
