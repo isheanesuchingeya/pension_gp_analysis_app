@@ -150,8 +150,7 @@ for year in pendata_combined['year'].unique():
         'Exemption': len(year_data[year_data['submission_sts_'] == 'exemption']),
         'Troubled': len(year_data[year_data['submission_sts_'] == 'Troubled']),
         'Other': len(year_data[~year_data['submission_sts_'].isin(status_types)])}
-    
-      status_counts[year] = year_status_counts
+    status_counts[year] = year_status_counts
 
 # Convert the status_counts dictionary to a DataFrame
 status_table = pd.DataFrame(status_counts).T  # .T to transpose the dictionary to a DataFrame
