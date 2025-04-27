@@ -127,50 +127,50 @@ year_count_table_styled = year_count_table.style.set_table_styles(
 
 #############################################################################################
  # --- DASHBOARD CONTENT ---
-    st.subheader("Quick Overview")
-    with st.container():
-        col1, col2 = st.columns(2)
+st.subheader("Quick Overview")
+with st.container():
+col1, col2 = st.columns(2)
 
-        with col1:
-            st.write("### Submissions over Time")
-            pensionyears_list = [2019, 2020, 2021, 2022, 2023]
-            pensionyear_counts = {year: len(pendata_combined[pendata_combined['year'] == year]) for year in pensionyears_list}
-            year_count_table = pd.DataFrame(list(pensionyear_counts.items()), columns=['Year', 'Count'])
-            fig, ax = plt.subplots(figsize=(8,5))
-            ax.plot(year_count_table['Year'], year_count_table['Count'], marker='o', color='#2E86AB')
-            ax.set_title('Expected Number of Submissions')
-            ax.set_xlabel('Year')
-            ax.set_ylabel('Count')
-            ax.grid(True)
-            st.pyplot(fig)
+with col1:
+    st.write("### Submissions over Time")
+    pensionyears_list = [2019, 2020, 2021, 2022, 2023]
+    pensionyear_counts = {year: len(pendata_combined[pendata_combined['year'] == year]) for year in pensionyears_list}
+    year_count_table = pd.DataFrame(list(pensionyear_counts.items()), columns=['Year', 'Count'])
+    fig, ax = plt.subplots(figsize=(8,5))
+    ax.plot(year_count_table['Year'], year_count_table['Count'], marker='o', color='#2E86AB')
+    ax.set_title('Expected Number of Submissions')
+    ax.set_xlabel('Year')
+    ax.set_ylabel('Count')
+    ax.grid(True)
+    st.pyplot(fig)
 
-        with col2:
-            st.write("### Submission Status Distribution")
-            fig, ax = plt.subplots(figsize=(6,6))
-            pendata_combined['submission_sts_'].value_counts().plot.pie(
-                autopct='%1.1f%%', colors=['#66b3ff', '#99ff99', '#ffcc99'], ax=ax, startangle=90)
-            ax.set_ylabel('')
-            st.pyplot(fig)
+with col2:
+    st.write("### Submission Status Distribution")
+    fig, ax = plt.subplots(figsize=(6,6))
+    pendata_combined['submission_sts_'].value_counts().plot.pie(
+        autopct='%1.1f%%', colors=['#66b3ff', '#99ff99', '#ffcc99'], ax=ax, startangle=90)
+    ax.set_ylabel('')
+    st.pyplot(fig)
 
-    st.subheader("Assessment and Approval Status")
-    with st.container():
-        col3, col4 = st.columns(2)
+st.subheader("Assessment and Approval Status")
+with st.container():
+col3, col4 = st.columns(2)
 
-        with col3:
-            fig, ax = plt.subplots(figsize=(8,5))
-            sns.countplot(data=pendata_combined, x='assessment_sts', palette='pastel', ax=ax)
-            ax.set_title('Assessment Status')
-            ax.set_xlabel('Assessment')
-            ax.set_ylabel('Count')
-            st.pyplot(fig)
+with col3:
+    fig, ax = plt.subplots(figsize=(8,5))
+    sns.countplot(data=pendata_combined, x='assessment_sts', palette='pastel', ax=ax)
+    ax.set_title('Assessment Status')
+    ax.set_xlabel('Assessment')
+    ax.set_ylabel('Count')
+    st.pyplot(fig)
 
-        with col4:
-            fig, ax = plt.subplots(figsize=(8,5))
-            sns.countplot(data=pendata_combined, x='approval_sts', palette='pastel', ax=ax)
-            ax.set_title('Approval Status')
-            ax.set_xlabel('Approval')
-            ax.set_ylabel('Count')
-            st.pyplot(fig)
+with col4:
+    fig, ax = plt.subplots(figsize=(8,5))
+    sns.countplot(data=pendata_combined, x='approval_sts', palette='pastel', ax=ax)
+    ax.set_title('Approval Status')
+    ax.set_xlabel('Approval')
+    ax.set_ylabel('Count')
+    st.pyplot(fig)
 
 
 #################################################################
