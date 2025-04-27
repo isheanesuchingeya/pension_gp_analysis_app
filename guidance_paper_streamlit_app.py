@@ -18,6 +18,7 @@ import io
 import streamlit as st
 from datetime import datetime
 import bcrypt
+from PIL import Image
 ###########################################################################################################################################################
                                                                   ##Display : Front End##
 #Section = st.sidebar.radio("Years", ["2019","2020","2021","2022","2023","2024"])
@@ -36,12 +37,9 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 # --- SIDEBAR ---
-from PIL import Image
-
 # Load and display logo
 logo = Image.open("IPECLOGO.jpg")
 st.sidebar.image(logo, width=200)  # You can adjust width as you like
-
 st.sidebar.title("Settings ⚙️")
 st.sidebar.subheader("Upload your file")
 uploaded_file = st.sidebar.file_uploader("Upload Pension Excel File", type=["xlsx"])
