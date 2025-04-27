@@ -43,10 +43,10 @@ st.sidebar.subheader("Upload your file")
 selected_year = st.sidebar.selectbox("Select Year", ["All", 2019, 2020, 2021, 2022, 2023, 2024])
 
 # --- HEADER ---
-st.title("Pension Fund Dashboard 📊")
+st.title("Actuarial Department- Pensions Guidance Paper Report 📊")
 st.markdown("""
-Welcome to the Pension Monitoring System! 
-Analyze submissions, assessment status, approval trends, and more.
+Welcome to the Pensions Guidance Paper Monitoring System! 
+Analyze submissions, assessment , approval trends, and more.
 """)
 st.divider()
 ###########################################################################################################################################################
@@ -75,7 +75,7 @@ else:
 # --- Start timer at the beginning ---
 start_time = time.time()
 st.sidebar.info("⏳ Model is running... Please download your report once completed.")
-#st.sidebar.spinner("Running analysis...")
+
 
 # List of years
 pensionyears_list = [2019, 2020, 2021, 2022, 2023]
@@ -186,7 +186,20 @@ with st.container():
         ax.set_ylabel('Count')
         st.pyplot(fig)
 
-#################################################################
+####################################################################################################################################
+
+pendata_combined["Expected Date of response"] = pd.to_datetime(
+    pendata_combined["Expected Date of response"], errors='coerce'
+)
+
+days_past_data = pendata_combined[['Name of Fund', 'Year','Responsible Person',"Date sent to Actuarial","Date- Assessment report sent to core department", 'Expected Date of response']].copy()
+days_past_data["Days Past Due"] = (today - days_past_data["Expected Date of response"]).dt.days
+days_past_data["Days Past Due"] = days_past_data["Days Past Due"].fillna(0).astype(int)
+filterd_days_past = days_past_data.loc[days_past_data['Days Past Due']>0]
+st.write("## Funds With Resubmission dates Past Due,(Download Now)")
+st.write(filterd_days_past)
+
+########################################################################################
 
 # Initialize an empty dictionary to store counts for each status
 status_counts = {}
