@@ -139,7 +139,7 @@ with st.container():
         ax.set_xlabel('Year')
         ax.set_ylabel('Count')
         ax.grid(True)
-        #st.pyplot(fig)
+        st.pyplot(fig)
 
     with col2:
       st.write("### Submission Status Distribution")
