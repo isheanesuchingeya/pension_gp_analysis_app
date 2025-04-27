@@ -126,8 +126,6 @@ year_count_table_styled = year_count_table.style.set_table_styles(
 
 ###############################################DISPLAY VISUALS#######################################################################################
 st.subheader("Quick Overview")
-
-#################################################################################
 st.write("Overall Stats")
 # Initialize an empty dictionary to store counts for each status
 status_counts = {}
@@ -187,7 +185,7 @@ for year in pendata_combined['year'].unique():
         'Approved': len(year_data[year_data['approval_sts'] == 'Yes']),
         'Non approved': len(year_data[year_data['approval_sts'] == 'No']),  
         'Pending': len(year_data[year_data['approval_sts'] == 'pending']),  
-        'Not populated': len(year_data[~year_data['approval_sts'].isin(approvalstatus_types)]),  # Corrected to check if status is not in the list
+        'Not populated': len(year_data[~year_data['approval_sts'].isin(approvalstatus_types)]), 
     }
     # Store the counts for this year
     approvalstatus_counts[year] = year_approvalstatus_counts
@@ -344,7 +342,7 @@ days_past_data = pendata_combined[['name_of_fund', 'year','responsible_person',"
 days_past_data["Days Past Due"] = (today - days_past_data["expected_date_of_response"]).dt.days
 days_past_data["Days Past Due"] = days_past_data["Days Past Due"].fillna(0).astype(int)
 filterd_days_past = days_past_data.loc[days_past_data['Days Past Due']>0]
-st.write("## Funds With Resubmission dates Past Due,(Download Now)")
+st.write("Funds With Resubmission dates Past Due,(Download Now)")
 st.write(filterd_days_past)
 
 ########################################################################################
