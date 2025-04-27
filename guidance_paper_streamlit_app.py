@@ -193,26 +193,6 @@ plt.gca().xaxis.set_major_locator(MaxNLocator(integer=True))
 plt.grid(True)
 st.pyplot(plt.gcf())
 
-
-
-# Create the plot and assign it to a variable named plt_pension_combined
-plt_pension_combined = plt.figure(figsize=(10, 6))
-colors = ['#FF6347', '#4682B4', '#32CD32', '#FFD700', '#8A2BE2']  
-bars = plt.bar(year_count_table['Year'], year_count_table['Count'], color=colors, width=0.5)
-plt.title('Expected number of submissions', fontsize=14)  # Title for the specific plot
-plt.xlabel('Year', fontsize=12)
-plt.ylabel('Count', fontsize=12)
-# Use MaxNLocator to ensure the x-axis labels are whole numbers without commas
-plt.gca().xaxis.set_major_locator(MaxNLocator(integer=True))
-for i, bar in enumerate(bars):
-    bar.set_label(f'{year_count_table["Year"][i]}: {int(bar.get_height())}')  # Set label for each bar
-plt.legend(title='Year: Count', loc='upper left', bbox_to_anchor=(1.05, 1), borderaxespad=0.)
-plt.grid(True, axis='y', linestyle='--', alpha=0.7)
-st.pyplot(plt.gcf())
-
-
-
-
 # Initialize an empty dictionary to store counts for each status
 status_counts = {}
 # List of status types we're interested in
@@ -257,10 +237,6 @@ status_table_styled = status_table.style.set_table_styles(
      {'selector': 'td', 'props': [('border', '1px solid black')]},
      {'selector': 'tr', 'props': [('border', '1px solid black')]}]
 )
-
-# Display the styled table
-status_table_styled
-
 
 
 # Set the style for seaborn (optional but for better visuals)
@@ -424,8 +400,6 @@ assessmentstatus_table_styled = assessmentstatus_table.style.set_table_styles(
      {'selector': 'tr', 'props': [('border', '1px solid black')]}]
 )
 
-# Display the styled table
-assessmentstatus_table_styled
 
 
 # Set the style for seaborn (optional but for better visuals)
@@ -451,8 +425,7 @@ plt.tight_layout()
 st.pyplot(plt.gcf())
 
 
-import seaborn as sns
-import matplotlib.pyplot as plt
+
 
 # Set the style for seaborn
 sns.set(style="whitegrid")
@@ -541,12 +514,6 @@ approvalstatus_table_styled = approvalstatus_table.style.set_table_styles(
      {'selector': 'tr', 'props': [('border', '1px solid black')]}]
 )
 
-# Display the styled table
-approvalstatus_table_styled
-
-
-import seaborn as sns
-import matplotlib.pyplot as plt
 
 # Set the style for seaborn
 sns.set(style="whitegrid")
