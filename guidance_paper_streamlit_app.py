@@ -75,7 +75,7 @@ else:
                                                       ##Analysis##
 # --- Start timer at the beginning ---
 start_time = time.time()
-st.sidebar.info("⏳ Model is running... Please download your report once completed.")
+st.sidebar.info("⏳ ...Please download your report once Run completed.")
 
 
 # List of years
