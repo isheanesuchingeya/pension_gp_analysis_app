@@ -35,7 +35,7 @@ if uploaded_file is not None:
 
     # You can continue with your processing logic here
     # For example, displaying the first few rows of the DataFrame
-    st.write(pendata_combined.head())
+    st.write(pendata_combined.head(3))
 
 else:
     st.warning("⚠️ Please upload an Excel file to proceed.")
@@ -72,8 +72,6 @@ year_count_table = year_count_table.style.set_table_styles(
      {'selector': 'tr', 'props': [('border', '1px solid black')]}]
 )
 
-# Display the styled table with borders and formatted YoY Growth
-year_count_table
 
 
 # Initialize an empty dictionary to store the counts
@@ -104,7 +102,7 @@ year_count_table_styled = year_count_table.style.set_table_styles(
 )
 
 # Display the styled table with borders and formatted YoY Growth
-year_count_table_styled
+year_count_table_styled.head(2)
 
 
 
