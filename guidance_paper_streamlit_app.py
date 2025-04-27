@@ -49,11 +49,21 @@ Analyze submissions, assessment status, approval trends, and more.
 """)
 st.divider()
 
-def show_running_status(process_text="Processing... Please wait.", success_text="Done! 🎉"):
-    with st.spinner(f"🔄 {process_text}"):
-        time.sleep(3)  # simulate a time-consuming task
-    st.success(success_text)
-    st.balloons()
+# --- Start timer at the beginning ---
+start_time = time.time()
+st.sidebar.info("⏳ Model is running... Please wait.")
+
+# --- Your full model/code runs here ---
+# Example: 
+time.sleep(10)  # simulate heavy model running
+
+# --- End timer after everything ---
+end_time = time.time()
+elapsed_time = round(end_time - start_time, 2)
+
+st.sidebar.success(f"✅ Model completed in {elapsed_time} seconds! 🎉")
+st.balloons()
+
 ###########################################################################################################################################################
                                                                       ##Data Import & Cleaning##
 # File uploader for the user to upload the Excel file
