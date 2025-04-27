@@ -223,25 +223,7 @@ if all(status in approvalstatus_table.columns for status in filtered_approvalsta
                                                                   value_name='Count')
 
   ############################################################################################################################################################
-    # Create the bar plot
-    plt.figure(figsize=(12, 8))
-    ax = sns.barplot(data=approvalstatus_table_long_filtered, x='Year', y='Count', hue='Status', 
-                     palette=['#1f77b4', '#ff7f0e', '#2ca02c','#d62728',])  # Adjusted the palette to three colors
-    plt.title('Approval Status Counts for Approved, Non Approved,Pending and Not populated', fontsize=16)
-    plt.xlabel('Year', fontsize=12)
-    plt.ylabel('Count', fontsize=12)
-    plt.legend(title='Status', loc='upper right')
-    plt.xticks(rotation=45)
-    for p in ax.patches:
-        ax.annotate(f'{p.get_height()}', 
-                    (p.get_x() + p.get_width() / 2., p.get_height()), 
-                    ha='center', va='center', 
-                    fontsize=10, color='black', 
-                    xytext=(0, 5), textcoords='offset points')
-    plt.tight_layout()
-    st.pyplot(plt.gcf())
-else:
-    print("Some of the approval status columns are missing from the DataFrame.")
+    
 
 
 approvalstatus_table['Growth (%)'] = approvalstatus_table['Approved'].pct_change() * 100
@@ -342,12 +324,15 @@ with st.container():
         st.pyplot(plt.gcf())
 
     with col4:
-        fig, ax = plt.subplots(figsize=(8, 5))
-        sns.countplot(data=pendata_combined, x='approval_sts', palette='pastel', ax=ax)
-        ax.set_title('Approval Status')
-        ax.set_xlabel('Approval')
-        ax.set_ylabel('Count')
-        st.pyplot(fig)
+        approvalstatus_table['Proportion Approved'] = approvalstatus_table['Approved'] / approvalstatus_table['Approved'].sum()
+        plt.figure(figsize=(10, 6))
+        sns.barplot(data=approvalstatus_table, x='Year', y='Proportion Approved', color='blue')
+        plt.title('Proportion Approved Over Years', fontsize=14)
+        plt.xlabel('Year', fontsize=12)
+        plt.ylabel('Proportion Approved', fontsize=12)
+        plt.ylim(0, 1)  # Limit y-axis to range from 0 to 1
+        plt.grid(True, axis='y', linestyle='--', alpha=0.7)
+        st.pyplot(plt)
 ####################################################################################################################################
 today = pd.Timestamp.today()
 today_date = datetime.today().strftime('%d %B %Y')
