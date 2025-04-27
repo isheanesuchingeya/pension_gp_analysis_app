@@ -41,13 +41,11 @@ if 'dark_theme' not in st.session_state:
 # Function to toggle theme
 def toggle_theme():
     st.session_state.dark_theme = not st.session_state.dark_theme
-
 ################
 # --- SIDEBAR ---
 logo = Image.open("IPECLOGO.jpg")
 st.sidebar.image(logo, width=200)
 st.sidebar.title("Settings ⚙️")
-st.sidebar.subheader("Upload your file")
 st.sidebar.title("Navigation")
 st.sidebar.header("Options")
 page = st.sidebar.selectbox("Select a page(Work in Progress):", ["Home", "Data Upload", "Visualizations","About"])
@@ -66,7 +64,8 @@ if page == "About":
   #############
 
 # Theme toggle button
-st.sidebar.button("Toggle Dark/Light Theme", on_click=toggle_theme)
+if st.sidebar.button("Toggle Dark/Light Theme"):
+    toggle_theme()  # Call the toggle function
 
 # Set theme based on the session state
 if st.session_state.dark_theme:
