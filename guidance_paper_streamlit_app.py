@@ -19,6 +19,8 @@ import streamlit as st
 from datetime import datetime
 import bcrypt
 from PIL import Image
+
+#########################################################################################
 # --- PAGE SETTINGS ---
 st.set_page_config(page_title="Pension Fund Dashboard", layout="wide", page_icon="📊")
 
@@ -100,6 +102,7 @@ st.divider()
 ###########################################################################################################################################################
                                                                       ##Data Import & Cleaning##
 # File uploader for the user to upload the Excel file
+pendata_combined = None
 uploaded_file = st.file_uploader("Upload the Pension Excel file", type=["xlsx"])
 if uploaded_file is not None:
     # Read the uploaded Excel file
