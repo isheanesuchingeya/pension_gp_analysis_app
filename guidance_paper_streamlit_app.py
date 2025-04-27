@@ -69,14 +69,13 @@ if uploaded_file is not None:
     # For example, displaying the first few rows of the DataFrame
     st.write(pendata_combined.head(3))
 # Replace all NaN values with '..not populated'
-pendata_combined = pendata_combined.fillna('..not populated')
+    pendata_combined = pendata_combined.fillna('..not populated')
 
      # Clean the column names using pyjanitor's clean_names() function
-pendata_combined = pendata_combined.clean_names()  # Clean the column names (lowercase, replace spaces with underscores)
+    pendata_combined = pendata_combined.clean_names()  # Clean the column names (lowercase, replace spaces with underscores)
      # Shorten column names 
-pendata_combined.columns = pendata_combined.columns.str.replace("department", "drpt")
-pendata_combined.columns = pendata_combined.columns.str.replace("status", "sts")
-
+    pendata_combined.columns = pendata_combined.columns.str.replace("department", "drpt")
+    pendata_combined.columns = pendata_combined.columns.str.replace("status", "sts")
 else:
     st.warning("⚠️ Please upload an Excel file to proceed.")
 ###########################################################################################################################################################
