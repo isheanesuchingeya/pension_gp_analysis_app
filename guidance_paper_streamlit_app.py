@@ -249,6 +249,7 @@ plt.legend(title='Status', loc='upper right')
 plt.xticks(rotation=45)
 plt.tight_layout()
 ##st.pyplot(plt.gcf())
+plt.close(fig) 
 Set the style for seaborn
 sns.set(style="whitegrid")
 
@@ -281,6 +282,7 @@ if all(status in status_table.columns for status in filtered_status_types):
                     xytext=(0, 5), textcoords='offset points')
     plt.tight_layout()
     #ic###st.pyplot(plt.gcf())
+    plt.close(fig) 
 else:
     print("Some of the status columns are missing from the DataFrame.")
 ############################################################################################################################################################
@@ -320,6 +322,7 @@ for i, status in enumerate(statuses):
                  f'{count}', ha='center', va='bottom', fontsize=10)
 plt.tight_layout()
 #ic###st.pyplot(plt.gcf())
+plt.close(fig) 
 
 ############################################################################################################################################################
 # Initialize an empty dictionary to store counts for each status
