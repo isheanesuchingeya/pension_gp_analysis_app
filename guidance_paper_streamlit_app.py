@@ -40,7 +40,7 @@ st.sidebar.image(logo, width=200)
 st.sidebar.title("Settings ⚙️")
 st.sidebar.subheader("Upload your file")
 #uploaded_file = st.sidebar.file_uploader("Upload Pension Excel File", type=["xlsx"])
-#selected_year = st.sidebar.selectbox("Select Year", ["All", 2019, 2020, 2021, 2022, 2023, 2024])
+selected_year = st.sidebar.selectbox("Select Year", ["All", 2019, 2020, 2021, 2022, 2023, 2024])
 
 # --- HEADER ---
 st.title("Pension Fund Dashboard 📊")
@@ -75,7 +75,7 @@ else:
 # --- Start timer at the beginning ---
 start_time = time.time()
 st.sidebar.info("⏳ Model is running... Please download your report once completed.")
-st.sidebar.spinner("Running analysis...")
+#st.sidebar.spinner("Running analysis...")
 
 # List of years
 pensionyears_list = [2019, 2020, 2021, 2022, 2023]
