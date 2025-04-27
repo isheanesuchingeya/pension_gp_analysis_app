@@ -6,3 +6,4 @@ pyjanitor
 matplotlib
 seaborn
 python-docx
+bcrypt
