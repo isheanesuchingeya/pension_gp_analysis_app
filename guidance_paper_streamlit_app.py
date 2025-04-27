@@ -131,33 +131,36 @@ with st.container():
 
     with col1:
         st.write("### Submissions over Time")
-        # Create the plot and assign it to a variable named plt_pension_combined
-        plt_pension_combined = plt.figure(figsize=(10, 6))
         
-        #  list of colors to use for each bar
-        colors = ['#FF6347', '#4682B4', '#32CD32', '#FFD700', '#8A2BE2']  
+        # Create the plot and assign it to a variable named fig
+        fig, ax = plt.subplots(figsize=(10, 6))
+        
+        # List of colors to use for each bar
+        colors = ['#FF6347', '#4682B4', '#32CD32', '#FFD700']  
         
         # Plot the data as a bar chart with different colors for each bar
-        bars = plt.bar(year_count_table['Year'], year_count_table['Count'], color=colors, width=0.5)
+        bars = ax.bar(year_count_table['Year'], year_count_table['Count'], color=colors, width=0.5)
         
         # Add labels and title
-        plt.title('Expected number of submissions', fontsize=14)  # Title for the specific plot
-        plt.xlabel('Year', fontsize=12)
-        plt.ylabel('Count', fontsize=12)
+        ax.set_title('Expected Number of Submissions', fontsize=14)
+        ax.set_xlabel('Year', fontsize=12)
+        ax.set_ylabel('Count', fontsize=12)
         
         # Use MaxNLocator to ensure the x-axis labels are whole numbers without commas
-        plt.gca().xaxis.set_major_locator(MaxNLocator(integer=True))
+        ax.xaxis.set_major_locator(MaxNLocator(integer=True))
         
-        # to create a label for each bar and assign it manually to the legend
+        # Create a label for each bar and assign it manually to the legend
         for i, bar in enumerate(bars):
             bar.set_label(f'{year_count_table["Year"][i]}: {int(bar.get_height())}')  # Set label for each bar
         
         # Add the legend on the right side of the plot
-        plt.legend(title='Year: Count', loc='upper left', bbox_to_anchor=(1.05, 1), borderaxespad=0.)
+        ax.legend(title='Year: Count', loc='upper left', bbox_to_anchor=(1.05, 1), borderaxespad=0.)
+        
+        # Display the grid
+        ax.grid(True, axis='y', linestyle='--', alpha=0.7)
+        
         # Display the graph with the specific name
-        plt.grid(True, axis='y', linestyle='--', alpha=0.7)
         st.pyplot(fig)
-
     with col2:
       st.write("### Submission Status Distribution")
       fig, ax = plt.subplots(figsize=(6, 6))
