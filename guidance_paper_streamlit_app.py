@@ -12,6 +12,9 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 import matplotlib.pyplot as plt
 import seaborn as sns
+from docx import Document
+from docx.shared import Inches
+import io
 ###########################################################################################################################################################
                                                                   ##Display : Front End##
 #Section = st.sidebar.radio("Years", ["2019","2020","2021","2022","2023","2024"])
@@ -136,7 +139,7 @@ with st.container():
         ax.set_xlabel('Year')
         ax.set_ylabel('Count')
         ax.grid(True)
-        st.pyplot(fig)
+        #st.pyplot(fig)
 
     with col2:
       st.write("### Submission Status Distribution")
@@ -172,7 +175,7 @@ with st.container():
         ax.set_title('Assessment Status')
         ax.set_xlabel('Assessment')
         ax.set_ylabel('Count')
-        st.pyplot(fig)
+        #st.pyplot(fig)
 
     with col4:
         fig, ax = plt.subplots(figsize=(8, 5))
@@ -236,26 +239,22 @@ sns.set(style="whitegrid")
 # Create a new DataFrame that is suitable for a bar plot
 status_table_long = status_table.melt(id_vars='Year', var_name='Status', value_name='Count')
 
-# Create a bar plot
+################### Create a bar plot######################################################################################################################
 plt.figure(figsize=(12, 8))
 bar_plot = sns.barplot(data=status_table_long, x='Year', y='Count', hue='Status')
-
-# Customize the plot
 plt.title('Submission Status Counts per Year', fontsize=16)
 plt.xlabel('Year', fontsize=12)
 plt.ylabel('Count', fontsize=12)
 plt.legend(title='Status', loc='upper right')
 plt.xticks(rotation=45)
 plt.tight_layout()
-st.pyplot(plt.gcf())
-
-
-# Set the style for seaborn
+#st.pyplot(plt.gcf())
+Set the style for seaborn
 sns.set(style="whitegrid")
 
+ ##################################################################################################################################################3            
 # Filter the status types to only include 'Done', 'Pending', and 'Partial'
 filtered_status_types = ['Submitted', 'Pending', 'Partial']
-
 # Ensure the columns exist before proceeding
 if all(status in status_table.columns for status in filtered_status_types):
     # Melt the DataFrame to long format, but only keep the filtered statuses
@@ -263,13 +262,10 @@ if all(status in status_table.columns for status in filtered_status_types):
                                                    value_vars=filtered_status_types, 
                                                    var_name='Status', 
                                                    value_name='Count')
-
+############################################################################################################################################################
     # Create the bar plot
     plt.figure(figsize=(12, 8))
     ax = sns.barplot(data=status_table_long_filtered, x='Year', y='Count', hue='Status')
-
-
-# Define custom colors for the status types
     color_palette = ['#1f77b4', '#d62728', '#ff7f0e']  # blue, red, and yellow
     # Customize the plot
     plt.title('Submission Status Counts for Done, Pending, and Partial per Year', fontsize=16)
@@ -277,26 +273,21 @@ if all(status in status_table.columns for status in filtered_status_types):
     plt.ylabel('Count', fontsize=12)
     plt.legend(title='Status', loc='upper right')
     plt.xticks(rotation=45)
-
-    # Add count numbers on top of each bar
     for p in ax.patches:
         ax.annotate(f'{p.get_height()}', 
                     (p.get_x() + p.get_width() / 2., p.get_height()), 
                     ha='center', va='center', 
                     fontsize=10, color='black', 
                     xytext=(0, 5), textcoords='offset points')
-
-    # Show the plot
     plt.tight_layout()
-    st.pyplot(plt.gcf())
+    #ic##st.pyplot(plt.gcf())
 else:
     print("Some of the status columns are missing from the DataFrame.")
-
+############################################################################################################################################################
 
 # Define the statuses we want to plot
 statuses = [ 'Dissolution','Other', 'Exemption','New fund', 'Troubled',]
 status_counts_by_year = {}
-
 # Loop through each year and extract counts for each status
 for year in status_table['Year'].unique():
     year_data = status_table[status_table['Year'] == year]
@@ -304,54 +295,40 @@ for year in status_table['Year'].unique():
     # For each status, count how many times it's greater than 0 for that year
     year_counts = [year_data[status].sum() for status in statuses]
     status_counts_by_year[year] = year_counts
-
 # Convert status counts into a DataFrame
-import pandas as pd
 status_counts_df = pd.DataFrame(status_counts_by_year, index=statuses).T
 
+############################################################################################################################################################
 # Create a figure and axis for the bar chart
 plt.figure(figsize=(12, 8))
-
 # Set positions for each bar
 bar_width = 0.15
 index = np.arange(len(status_counts_df))
-
-# Define colors for the statuses
 colors = ['#1f77b4', '#ff1493', '#32cd32', '#ff7f0e', '#d62728']
-
 # Plot bars for each status type (each status will have bars for each year)
 for i, status in enumerate(statuses):
     plt.bar(index + i * bar_width, status_counts_df[status], 
             bar_width, label=status, color=colors[i])
-
-# Customize the plot
 plt.title('Submission Status Counts: Dissolution Other, New Fund, Exemption, Troubled', fontsize=16)
 plt.xlabel('Year', fontsize=12)
 plt.ylabel('Count', fontsize=12)
 plt.xticks(index + bar_width * 2, status_counts_df.index, rotation=45)  # Position labels at the center of the grouped bars
 plt.legend(title='Status', loc='upper right')
-
-# Add count numbers on top of each bar
 for i, status in enumerate(statuses):
     for j, count in enumerate(status_counts_df[status]):
         plt.text(index[j] + i * bar_width, count + 0.5,  # Offset for the text
                  f'{count}', ha='center', va='bottom', fontsize=10)
-
-# Adjust layout and display the plot
 plt.tight_layout()
-st.pyplot(plt.gcf())
+#ic##st.pyplot(plt.gcf())
 
-
+############################################################################################################################################################
 # Initialize an empty dictionary to store counts for each status
 assessmentstatus_counts = {}
-
 # List of status types we're interested in
 assessmentstatus_types = ['Done', 'Pending', 'Troubled', 'Dissolution', 'New fund', 'exemption']
-
 # Loop through each year and count the occurrences of each status
 for year in pendata_combined['year'].unique():
     year_data = pendata_combined[pendata_combined['year'] == year]
-    
     # Initialize a dictionary to store counts for this year
     year_assessmentstatus_counts = {
         'Year': year,
@@ -372,16 +349,12 @@ for year in pendata_combined['year'].unique():
 assessmentstatus_table = pd.DataFrame(assessmentstatus_counts).T  # .T to transpose the dictionary to a DataFrame
 # Reset index and drop the default index column that is added when creating a DataFrame
 assessmentstatus_table = assessmentstatus_table.reset_index(drop=True)
-
 # Replace NaN values with 0
 assessmentstatus_table = assessmentstatus_table.fillna(0)
-
 # Convert all columns to integers (whole numbers)
 assessmentstatus_table = assessmentstatus_table.astype(int)
-
 # Remove the row where all values are zero
 assessmentstatus_table = assessmentstatus_table[(assessmentstatus_table != 0).any(axis=1)]
-
 # Add borders to the table
 assessmentstatus_table_styled = assessmentstatus_table.style.set_table_styles(
     [{'selector': 'table', 'props': [('border', '1px solid black')]},
@@ -389,40 +362,34 @@ assessmentstatus_table_styled = assessmentstatus_table.style.set_table_styles(
      {'selector': 'td', 'props': [('border', '1px solid black')]},
      {'selector': 'tr', 'props': [('border', '1px solid black')]}]
 )
-
-
-
 # Set the style for seaborn (optional but for better visuals)
 sns.set(style="whitegrid")
+
+
 
 # Create a new DataFrame that is suitable for a bar plot
 # Ensure you use the correct variable name ('assessmentstatus_table')
 assessmentstatus_table_long = assessmentstatus_table.melt(id_vars='Year', var_name='Status', value_name='Count')
 
+############################################################################################################################################################
+
 # Create a bar plot
 plt.figure(figsize=(12, 8))
 bar_plot = sns.barplot(data=assessmentstatus_table_long, x='Year', y='Count', hue='Status')
-
 # Customize the plot
 plt.title('Assessment Status Counts per Year', fontsize=16)
 plt.xlabel('Year', fontsize=12)
 plt.ylabel('Count', fontsize=12)
 plt.legend(title='Status', loc='upper right')
 plt.xticks(rotation=45)
-
 # Show the plot
 plt.tight_layout()
-st.pyplot(plt.gcf())
-
-
-
-
+###st.pyplot(plt.gcf())
+############################################################################################################################################################
 # Set the style for seaborn
 sns.set(style="whitegrid")
-
 # Filter the status types to only include 'Assessed' and 'Non Assessed'
 filtered_assessmentstatus_types = ['Assessed', 'Non assessed']  # Ensure this matches the column names exactly
-
 # Ensure the columns exist before proceeding
 if all(status in assessmentstatus_table.columns for status in filtered_assessmentstatus_types):
     # Melt the DataFrame to long format, but only keep the filtered statuses
@@ -430,8 +397,9 @@ if all(status in assessmentstatus_table.columns for status in filtered_assessmen
                                                    value_vars=filtered_assessmentstatus_types, 
                                                    var_name='Status', 
                                                    value_name='Count')
-
-    # Create the bar plot
+  
+  ############################################################################################################################################################
+  # Create the bar plot
     plt.figure(figsize=(12, 8))
     ax = sns.barplot(data=assessmentstatus_table_long_filtered, x='Year', y='Count', hue='Status', palette=['#1f77b4', '#ff7f0e'])  # Adjusted the palette to two colors
 
@@ -441,35 +409,28 @@ if all(status in assessmentstatus_table.columns for status in filtered_assessmen
     plt.ylabel('Count', fontsize=12)
     plt.legend(title='Status', loc='upper right')
     plt.xticks(rotation=45)
-
-    # Add count numbers on top of each bar
+# Add count numbers on top of each bar
     for p in ax.patches:
         ax.annotate(f'{p.get_height()}', 
                     (p.get_x() + p.get_width() / 2., p.get_height()), 
                     ha='center', va='center', 
                     fontsize=10, color='black', 
                     xytext=(0, 5), textcoords='offset points')
-
-    # Show the plot
+ # Show the plot
     plt.tight_layout()
-    st.pyplot(plt.gcf())
+   #ic# #st.pyplot(plt.gcf())
 else:
     print("Some of the status columns are missing from the DataFrame.")
 
-
-import pandas as pd
-
+############################################################################################################################################################
 # Initialize an empty dictionary to store counts for each status
 approvalstatus_counts = {}
-
 # List of status types we're interested in
 approvalstatus_types = ['Yes', 'No', 'pending']
-
 # Loop through each year and count the occurrences of each status
 for year in pendata_combined['year'].unique():
     year_data = pendata_combined[pendata_combined['year'] == year]
-    
-    # Initialize a dictionary to store counts for this year
+     # Initialize a dictionary to store counts for this year
     year_approvalstatus_counts = {
         'Year': year,
         'Approved': len(year_data[year_data['approval_sts'] == 'Yes']),
@@ -477,25 +438,20 @@ for year in pendata_combined['year'].unique():
         'Pending': len(year_data[year_data['approval_sts'] == 'pending']),  
         'Not populated': len(year_data[~year_data['approval_sts'].isin(approvalstatus_types)]),  # Corrected to check if status is not in the list
     }
-    
     # Store the counts for this year
     approvalstatus_counts[year] = year_approvalstatus_counts
-
 # Convert the approvalstatus_counts dictionary to a DataFrame
 approvalstatus_table = pd.DataFrame(approvalstatus_counts).T  # .T to transpose the dictionary to a DataFrame
 # Reset index and drop the default index column that is added when creating a DataFrame
 approvalstatus_table = approvalstatus_table.reset_index(drop=True)
-
 # Replace NaN values with 0
 approvalstatus_table = approvalstatus_table.fillna(0)
-
 # Convert all columns to integers (whole numbers)
 approvalstatus_table = approvalstatus_table.astype(int)
 #Remove rows where 'Year' is 0 (i.e., blank rows)
 approvalstatus_table = approvalstatus_table[approvalstatus_table['Year'] != 0]
 # Remove the row where all values are zero
 approvalstatus_table = approvalstatus_table[(approvalstatus_table != 0).any(axis=1)]
-
 # Add borders to the table for better visibility
 approvalstatus_table_styled = approvalstatus_table.style.set_table_styles(
     [{'selector': 'table', 'props': [('border', '1px solid black')]},
@@ -503,14 +459,10 @@ approvalstatus_table_styled = approvalstatus_table.style.set_table_styles(
      {'selector': 'td', 'props': [('border', '1px solid black')]},
      {'selector': 'tr', 'props': [('border', '1px solid black')]}]
 )
-
-
 # Set the style for seaborn
 sns.set(style="whitegrid")
-
 # Filter the status types to include 'Approved', 'Non approved', and 'Not yet Assessed'
 filtered_approvalstatus_types = ['Approved', 'Non approved','Pending', 'Not populated']  # Ensure this matches the column names exactly
-
 # Ensure the columns exist before proceeding
 if all(status in approvalstatus_table.columns for status in filtered_approvalstatus_types):
     # Melt the DataFrame to long format, but only keep the filtered statuses
@@ -519,29 +471,27 @@ if all(status in approvalstatus_table.columns for status in filtered_approvalsta
                                                                   var_name='Status', 
                                                                   value_name='Count')
 
+  ############################################################################################################################################################
     # Create the bar plot
     plt.figure(figsize=(12, 8))
     ax = sns.barplot(data=approvalstatus_table_long_filtered, x='Year', y='Count', hue='Status', 
                      palette=['#1f77b4', '#ff7f0e', '#2ca02c','#d62728',])  # Adjusted the palette to three colors
-
-    # Customize the plot
+ # Customize the plot
     plt.title('Approval Status Counts for Approved, Non Approved,Pending and Not populated', fontsize=16)
     plt.xlabel('Year', fontsize=12)
     plt.ylabel('Count', fontsize=12)
     plt.legend(title='Status', loc='upper right')
     plt.xticks(rotation=45)
-
-    # Add count numbers on top of each bar
+# Add count numbers on top of each bar
     for p in ax.patches:
         ax.annotate(f'{p.get_height()}', 
                     (p.get_x() + p.get_width() / 2., p.get_height()), 
                     ha='center', va='center', 
                     fontsize=10, color='black', 
                     xytext=(0, 5), textcoords='offset points')
-
-    # Show the plot
+ # Show the plot
     plt.tight_layout()
-    st.pyplot(plt.gcf())
+    #st.pyplot(plt.gcf())
 else:
     print("Some of the approval status columns are missing from the DataFrame.")
 
@@ -567,15 +517,8 @@ for col in pendata_combined.columns:
 
 
 
-
-pendata_combined.loc[pendata_combined.year==2019]
-
-
-
 # Filter data for 2019
 pendata_2019 = pendata_combined[pendata_combined['year'] == 2019]
-
-
 # Map the submission statuses to new categories
 pendata_2019['submission_status'] = pendata_2019['submission_sts_'].apply(
     lambda x: 'Submitted' if x == 'Done' else ('Partial' if x == 'Partial' else ('Pending' if x == 'Pending' else 'Other'))
@@ -586,109 +529,88 @@ pendata_2019['submission_status'] = pendata_2019['submission_sts_'].apply(
 # Create a table of submission status counts
 submission_status_table2019 = pendata_2019['submission_status'].value_counts().reset_index()
 submission_status_table2019.columns = ['Submission Status', 'Count']
-print(submission_status_table2019)
 
 
 # Create a table of submission status counts
 submission_status_table2019 = pendata_2019['submission_status'].value_counts().reset_index()
 submission_status_table2019.columns = ['Submission Status', 'Count']
-
+############################################################################################################################################################
 
 fig, ax = plt.subplots(figsize=(6, 3))
 ax.axis('tight')
 ax.axis('off')
 table = ax.table(cellText=submission_status_table2019.values, colLabels=submission_status_table2019.columns, loc='center', cellLoc='center')
-
 # Add borders around the table
 for (i, j), cell in table.get_celld().items():
     cell.set_edgecolor('black')  # Set the border color
     cell.set_linewidth(1)        # Set the border thickness
-st.pyplot(plt.gcf())
+#ic# #st.pyplot(plt.gcf())
 
-
-import matplotlib.pyplot as plt
+############################################################################################################################################################
 
 # Bar chart with different colors and count labels
 colors = ['#66b3ff', '#99ff99', '#ffcc99']  # Define different colors for each bar
 fig, ax = plt.subplots(figsize=(8, 5))
-
-# Plot the bar chart with custom colors
 bars = ax.bar(submission_status_table2019['Submission Status'], submission_status_table2019['Count'], color=colors)
-
-# Add title and labels
 ax.set_title('Submission Status Distribution (2019)', fontsize=14)
 ax.set_xlabel('Submission Status', fontsize=12)
 ax.set_ylabel('Count', fontsize=12)
-
-# Add count labels on the bars
 for bar in bars:
     yval = bar.get_height()
     ax.text(bar.get_x() + bar.get_width()/2, yval + 0.5, str(int(yval)), ha='center', va='bottom', fontsize=12)
-
 # Show the plot
 plt.tight_layout()
-st.pyplot(plt.gcf())
+#ic##st.pyplot(plt.gcf())
 
+############################################################################################################################################################
 # Pie chart
 plt.figure(figsize=(6, 6))
 pendata_2019['submission_status'].value_counts().plot(kind='pie', autopct='%1.1f%%', colors=['#66b3ff', '#99ff99', '#ffcc99'], startangle=90)
 plt.title('Submission Status Distribution (2019)', fontsize=14)
 plt.ylabel('')  # Remove the ylabel
 plt.tight_layout()
-st.pyplot(plt.gcf())
+#ic##st.pyplot(plt.gcf())
 
-
+############################################################################################################################################################
 # Group by 'administrator' and 'submission_status', then unstack to reshape for the bar chart
 administrator_submission2019 = pendata_2019.groupby(['administrator', 'submission_status']).size().unstack().fillna(0)
 
 # Plotting a bar chart (not stacked)
 administrator_submission2019.plot(kind='bar', figsize=(10, 6))
-
-# Set the title and labels
 plt.title('Submission Status by Administrator', fontsize=14)
 plt.xlabel('Administrator', fontsize=12)
 plt.ylabel('Count', fontsize=12)
-
-# Rotate x-axis labels for better readability
 plt.xticks(rotation=45)
-
 # Show the plot
-plt.tight_layout()  # Adjust layout for better spacing
-st.pyplot(plt.gcf())
+#plt.tight_layout()  # Adjust layout for better spacing
+#ic##st.pyplot(plt.gcf())
 
+############################################################################################################################################################
 # Group by 'name_of_fund', 'sts' and 'submission_sts_', then unstack to reshape for the bar chart
 fund_status_submission2019 = pendata_2019.groupby([ 'sts', 'submission_sts_']).size().unstack().fillna(0)
-
 # Plotting a bar chart (not stacked)
 ax = fund_status_submission2019.plot(kind='bar', figsize=(12, 6))
-
 # Set the title and labels
 plt.title('Submission Status by Fund and Status', fontsize=14)
 plt.xlabel('Fund Status', fontsize=12)
 plt.ylabel('Count', fontsize=12)
-
 # Rotate x-axis labels for better readability
 plt.xticks(rotation=45)
-
 # Add count numbers on top of the bars
 for container in ax.containers:
     ax.bar_label(container, label_type='edge', fontsize=10, color='black')
-
 # Show the plot
-plt.tight_layout()  # Adjust layout for better spacing
-st.pyplot(plt.gcf())
+#plt.tight_layout()  # Adjust layout for better spacing
+##st.pyplot(plt.gcf())
 
-
+############################################################################################################################################################
 # Classify the assessment status in 2019
 pendata_2019['assessment_status_category'] = pendata_2019['assessment_sts'].apply(
     lambda x: 'Assessed' if x == 'Done' else ('Pending' if x == 'Pending' else 'Other')
 )
-
-
 # Perform counts for assessment status categories in 2019
 assessment_status_table_2019 = pendata_2019['assessment_status_category'].value_counts().reset_index()
 assessment_status_table_2019.columns = ['Assessment Status', 'Count']
-
 # Display the table with borders
 assementstatusstyled_table2019 = assessment_status_table_2019.style.set_table_styles(
     [{'selector': 'table', 'props': [('border', '2px solid black')]}, 
@@ -696,37 +618,26 @@ assementstatusstyled_table2019 = assessment_status_table_2019.style.set_table_st
      {'selector': 'td', 'props': [('border', '2px solid black')]}]
 )
 
-# Display the styled table
-assementstatusstyled_table2019 
-
 
 # Get the counts for each assessment status category
 assessment_status_counts_2019 = pendata_2019['assessment_status_category'].value_counts()
 
+############################################################################################################################################################
 # Plotting the bar chart for assessment status distribution
 plt.figure(figsize=(10, 6))
 bars = plt.bar(assessment_status_counts_2019.index, assessment_status_counts_2019.values, color=['#ff9999', '#66b3ff', '#99ff99'])
-
 # Adding title and labels
 plt.title('Assessment Status Distribution (2019)', fontsize=14)
 plt.xlabel('Assessment Status', fontsize=12)
 plt.ylabel('Count', fontsize=12)
-
 # Adding the count numbers on top of the bars
 for bar in bars:
     plt.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.05, 
              f'{int(bar.get_height())}', ha='center', fontsize=10)
-
 # Show the plot
-plt.tight_layout()
-st.pyplot(plt.gcf())
-
-
-# In[65]:
-
-
-import matplotlib.pyplot as plt
-
+#plt.tight_layout()
+##st.pyplot(plt.gcf())
+############################################################################################################################################################
 # Get the counts for each assessment status category
 assessment_status_counts_2019 = pendata_2019['assessment_status_category'].value_counts()
 
@@ -737,27 +648,15 @@ plt.pie(assessment_status_counts_2019, labels=assessment_status_counts_2019.inde
 
 # Adding title
 plt.title('Assessment Status Distribution (2019)', fontsize=14)
-
 # Show the plot
-plt.tight_layout()
-st.pyplot(plt.gcf())
-
-
-# In[66]:
-
+#plt.tight_layout()
+##st.pyplot(plt.gcf())
+############################################################################################################################################################
 
 # Count the occurrences of each report location
 report_location_counts2019 = pendata_2019['report_location'].value_counts().reset_index()
-
 # Rename the columns for clarity
 report_location_counts2019.columns = ['Report Location', 'Count']
-
-# Display the result
-print(report_location_counts2019)
-
-
-# In[67]:
-
 
 # Apply border styling to the report location count table
 reportlocationstyled_table2019 = report_location_counts2019.style.set_table_styles(
@@ -765,13 +664,6 @@ reportlocationstyled_table2019 = report_location_counts2019.style.set_table_styl
      {'selector': 'th', 'props': [('border', '2px solid black')]}, 
      {'selector': 'td', 'props': [('border', '2px solid black')]}]
 )
-
-# Display the styled table
-reportlocationstyled_table2019
-
-
-# In[68]:
-
 
 # Create a new column for approval status categories based on the given criteria
 def categorize_approval_status(status):
@@ -787,22 +679,9 @@ def categorize_approval_status(status):
 # Apply the categorization function to the approval status column
 pendata_2019['approval_status_category'] = pendata_2019['approval_sts'].apply(categorize_approval_status)
 
-
-
-
-# In[69]:
-
-
 # Count the occurrences of each approval status category
 approval_status_counts2019 = pendata_2019['approval_status_category'].value_counts().reset_index()
 approval_status_counts2019.columns = ['Approval Status', 'Count']
-
-# Display the result
-print(approval_status_counts2019)
-
-
-# In[70]:
-
 
 # Apply border styling to the approval status count table
 styled_approval_status_table2019 = approval_status_counts2019.style.set_table_styles(
@@ -811,45 +690,28 @@ styled_approval_status_table2019 = approval_status_counts2019.style.set_table_st
      {'selector': 'td', 'props': [('border', '2px solid black')]}]
 )
 
-# Display the styled table
-styled_approval_status_table2019
-
-
-# In[71]:
-
-
+############################################################################################################################################################
 # Plotting the bar chart for approval status categories
 plt.figure(figsize=(7, 6))
 bars = plt.bar(approval_status_counts2019['Approval Status'], approval_status_counts2019['Count'], color='#ff9999')
-
-# Adding title and labels
 plt.title('Count of Approval Status (2019)', fontsize=14)
 plt.xlabel('Approval Status', fontsize=12)
 plt.ylabel('Count', fontsize=12)
-
-# Adding the count numbers on top of the bars
 for bar in bars:
     plt.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.05, 
              f'{int(bar.get_height())}', ha='center', fontsize=10)
 
 # Rotate x-axis labels for readability
 plt.xticks(rotation=45, ha='right')
-
 # Show the plot
-plt.tight_layout()
-st.pyplot(plt.gcf())
-
-
-# In[72]:
-
-
-# Plotting the pie chart for approval status categories
+#plt.tight_layout()
+##st.pyplot(plt.gcf())
 plt.figure(figsize=(8, 8))
 plt.pie(approval_status_counts2019['Count'], labels=approval_status_counts2019['Approval Status'], autopct='%1.1f%%', colors=['#ff9999', '#66b3ff', '#99ff99'])
 plt.title('Approval Status Distribution (2019)', fontsize=14)
-st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
-
+############################################################################################################################################################
 
 # Loop through each column to handle NaN replacement
 for col in pendata_combined.columns:
@@ -860,9 +722,6 @@ for col in pendata_combined.columns:
     else:
         # Fill NaN in non-numeric columns with 'Not Populated'
         pendata_combined[col].fillna('Not Populated', inplace=True)
-
-
-
 
 # Loop through each column to handle NaN replacement
 for col in pendata_combined.columns:
@@ -883,7 +742,6 @@ pendata_2020['submission_status'] = pendata_2020['submission_sts_'].apply(
 
 )
 
-
 # Create a table of submission status counts
 submission_status_table2020 = pendata_2020['submission_status'].value_counts().reset_index()
 submission_status_table2020.columns = ['Submission Status', 'Count']
@@ -898,54 +756,44 @@ table = ax.table(cellText=submission_status_table2020.values, colLabels=submissi
 for (i, j), cell in table.get_celld().items():
     cell.set_edgecolor('black')  # Set the border color
     cell.set_linewidth(1)        # Set the border thickness
-st.pyplot(plt.gcf())
-
-
-# Display the table with borders
-import matplotlib.pyplot as plt
-
+##st.pyplot(plt.gcf())
 fig, ax = plt.subplots(figsize=(6, 3))
 ax.axis('tight')
 ax.axis('off')
 table = ax.table(cellText=submission_status_table2020.values, colLabels=submission_status_table2020.columns, loc='center', cellLoc='center')
-
 # Add borders around the table
 for (i, j), cell in table.get_celld().items():
     cell.set_edgecolor('black')  # Set the border color
     cell.set_linewidth(1)        # Set the border thickness
-st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
-
+############################################################################################################################################################
 
 # Bar chart with different colors and count labels
 colors = ['#66b3ff', '#99ff99', '#ffcc99']  # Define different colors for each bar
 fig, ax = plt.subplots(figsize=(8, 5))
-
 # Plot the bar chart with custom colors
 bars = ax.bar(submission_status_table2020['Submission Status'], submission_status_table2020['Count'], color=colors)
-
 # Add title and labels
 ax.set_title('Submission Status Distribution (2020)', fontsize=14)
 ax.set_xlabel('Submission Status', fontsize=12)
 ax.set_ylabel('Count', fontsize=12)
-
 # Add count labels on the bars
 for bar in bars:
     yval = bar.get_height()
     ax.text(bar.get_x() + bar.get_width()/2, yval + 0.5, str(int(yval)), ha='center', va='bottom', fontsize=12)
-
 # Show the plot
 plt.tight_layout()
-st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
-
+############################################################################################################################################################
 # Pie chart
 plt.figure(figsize=(6, 6))
 pendata_2020['submission_status'].value_counts().plot(kind='pie', autopct='%1.1f%%', colors=['#66b3ff', '#99ff99', '#ffcc99'], startangle=90)
 plt.title('Submission Status Distribution (2020)', fontsize=14)
 plt.ylabel('')  # Remove the ylabel
 plt.tight_layout()
-st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
 # Classify the assessment status in 2020
 pendata_2020['assessment_status_category'] = pendata_2020['assessment_sts'].apply(
@@ -962,14 +810,7 @@ assementstatusstyled_table2020 = assessment_status_table_2020.style.set_table_st
      {'selector': 'th', 'props': [('border', '2px solid black')]}, 
      {'selector': 'td', 'props': [('border', '2px solid black')]}]
 )
-
-# Display the styled table
-assementstatusstyled_table2020
-
-
-# In[84]:
-
-
+############################################################################################################################################################
 # Get the counts for each assessment status category
 assessment_status_counts_2020 = pendata_2020['assessment_status_category'].value_counts()
 
@@ -989,12 +830,8 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-st.pyplot(plt.gcf())
-
-
-# In[85]:
-
-
+##st.pyplot(plt.gcf())
+############################################################################################################################################################
 # Plotting the pie chart for assessment status distribution
 plt.figure(figsize=(8, 8))
 plt.pie(assessment_status_counts_2020, labels=assessment_status_counts_2020.index, autopct='%1.1f%%', 
@@ -1005,12 +842,9 @@ plt.title('Assessment Status Distribution (2020)', fontsize=14)
 
 # Show the plot
 plt.tight_layout()
-st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
-
-# In[86]:
-
-
+############################################################################################################################################################
 # Count the occurrences of each report location
 report_location_counts2020 = pendata_2020['report_location'].value_counts().reset_index()
 
@@ -1108,7 +942,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-st.pyplot(plt.gcf())
+#st.pyplot(plt.gcf())
 
 
 # In[90]:
@@ -1167,7 +1001,7 @@ table = ax.table(cellText=submission_status_table2021.values, colLabels=submissi
 for (i, j), cell in table.get_celld().items():
     cell.set_edgecolor('black')  # Set the border color
     cell.set_linewidth(1)        # Set the border thickness
-st.pyplot(plt.gcf())
+#st.pyplot(plt.gcf())
 
 
 # In[95]:
@@ -1192,7 +1026,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-st.pyplot(plt.gcf())
+#st.pyplot(plt.gcf())
 
 
 # In[96]:
@@ -1204,7 +1038,7 @@ pendata_2021['submission_status'].value_counts().plot(kind='pie', autopct='%1.1f
 plt.title('Submission Status Distribution (2021)', fontsize=14)
 plt.ylabel('')  # Remove the ylabel
 plt.tight_layout()
-st.pyplot(plt.gcf())
+#st.pyplot(plt.gcf())
 
 
 # In[97]:
@@ -1226,7 +1060,7 @@ plt.xticks(rotation=45)
 
 # Show the plot
 plt.tight_layout()  # Adjust layout for better spacing
-st.pyplot(plt.gcf())
+#st.pyplot(plt.gcf())
 
 
 # In[98]:
@@ -1252,7 +1086,7 @@ for container in ax.containers:
 
 # Show the plot
 plt.tight_layout()  # Adjust layout for better spacing
-st.pyplot(plt.gcf())
+#st.pyplot(plt.gcf())
 
 
 # In[99]:
@@ -1300,7 +1134,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-st.pyplot(plt.gcf())
+#st.pyplot(plt.gcf())
 
 
 # In[101]:
@@ -1316,7 +1150,7 @@ plt.title('Assessment Status Distribution (2021)', fontsize=14)
 
 # Show the plot
 plt.tight_layout()
-st.pyplot(plt.gcf())
+#st.pyplot(plt.gcf())
 
 
 # In[102]:
@@ -1394,7 +1228,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-st.pyplot(plt.gcf())
+#st.pyplot(plt.gcf())
 
 
 # In[105]:
@@ -1472,7 +1306,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-st.pyplot(plt.gcf())
+#st.pyplot(plt.gcf())
 
 
 # In[112]:
@@ -1484,7 +1318,7 @@ pendata_2022['submission_status'].value_counts().plot(kind='pie', autopct='%1.1f
 plt.title('Submission Status Distribution (2022)', fontsize=14)
 plt.ylabel('')  # Remove the ylabel
 plt.tight_layout()
-st.pyplot(plt.gcf())
+#st.pyplot(plt.gcf())
 
 
 # In[113]:
@@ -1506,7 +1340,7 @@ plt.xticks(rotation=45)
 
 # Show the plot
 plt.tight_layout()  # Adjust layout for better spacing
-st.pyplot(plt.gcf())
+#st.pyplot(plt.gcf())
 
 
 # In[114]:
@@ -1532,7 +1366,7 @@ for container in ax.containers:
 
 # Show the plot
 plt.tight_layout()  # Adjust layout for better spacing
-st.pyplot(plt.gcf())
+#st.pyplot(plt.gcf())
 
 
 # In[115]:
@@ -1580,7 +1414,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-st.pyplot(plt.gcf())
+#st.pyplot(plt.gcf())
 
 
 # In[117]:
@@ -1596,7 +1430,7 @@ plt.title('Assessment Status Distribution (2022)', fontsize=14)
 
 # Show the plot
 plt.tight_layout()
-st.pyplot(plt.gcf())
+#st.pyplot(plt.gcf())
 
 
 # In[118]:
@@ -1676,7 +1510,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-st.pyplot(plt.gcf())
+#st.pyplot(plt.gcf())
 
 
 # In[121]:
@@ -1735,7 +1569,7 @@ table = ax.table(cellText=submission_status_table2023.values, colLabels=submissi
 for (i, j), cell in table.get_celld().items():
     cell.set_edgecolor('black')  # Set the border color
     cell.set_linewidth(1)        # Set the border thickness
-st.pyplot(plt.gcf())
+#st.pyplot(plt.gcf())
 
 
 # In[127]:
@@ -1760,7 +1594,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-st.pyplot(plt.gcf())
+#st.pyplot(plt.gcf())
 
 
 
@@ -1770,7 +1604,7 @@ pendata_2023['submission_status'].value_counts().plot(kind='pie', autopct='%1.1f
 plt.title('Submission Status Distribution (2023)', fontsize=14)
 plt.ylabel('')  # Remove the ylabel
 plt.tight_layout()
-st.pyplot(plt.gcf())
+#st.pyplot(plt.gcf())
 
 
 
@@ -1790,7 +1624,7 @@ plt.xticks(rotation=45)
 
 # Show the plot
 plt.tight_layout()  # Adjust layout for better spacing
-st.pyplot(plt.gcf())
+#st.pyplot(plt.gcf())
 
 
 # Group by 'name_of_fund', 'sts' and 'submission_sts_', then unstack to reshape for the bar chart
@@ -1813,7 +1647,7 @@ for container in ax.containers:
 
 # Show the plot
 plt.tight_layout()  # Adjust layout for better spacing
-st.pyplot(plt.gcf())
+#st.pyplot(plt.gcf())
 
 
 
@@ -1856,7 +1690,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-st.pyplot(plt.gcf())
+#st.pyplot(plt.gcf())
 
 
 
@@ -1932,15 +1766,10 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
-# Import necessary libraries
-import pandas as pd
-import matplotlib.pyplot as plt
-from docx import Document
-from docx.shared import Inches
-import io
 
+################################################################ Report Generation ##########################################################################
 # Create a new Word Document
 doc = Document()
 doc.add_heading('Guidance Paper Analysis', level=1)
