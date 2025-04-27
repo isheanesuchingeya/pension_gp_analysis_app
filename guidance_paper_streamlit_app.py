@@ -36,6 +36,12 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 # --- SIDEBAR ---
+from PIL import Image
+
+# Load and display logo
+logo = Image.open("IPECLOGO.jpg")
+st.sidebar.image(logo, width=200)  # You can adjust width as you like
+
 st.sidebar.title("Settings ⚙️")
 st.sidebar.subheader("Upload your file")
 uploaded_file = st.sidebar.file_uploader("Upload Pension Excel File", type=["xlsx"])
