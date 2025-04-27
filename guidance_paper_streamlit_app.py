@@ -45,12 +45,12 @@ page = st.sidebar.selectbox("Select a page(Work in Progress):", ["Home", "Data U
 if page == "About":
   st.title("About This App")
   st.markdown("""
-    This application was developed by the **Actuarial Department** to provide insights into pension fund submissions and approval statuses.
+    This application was developed by the **Actuarial Department Team** to provide a comprehensive update on pensions guidance paper statistics.
     
-    **Date Developed:** January 2023  
-    **Last Updated:** April 2025  
+    **Date Developed:**  23 April 2025  
+    **Last Updated:** 27 April 2025  
     **Version:** 1.0  
-    **Contact:** actuarial@company.com
+    **Contact:** actuarial@ipec.co.zw.com
 
     We aim to make data analysis accessible and informative for all stakeholders.
     """)
