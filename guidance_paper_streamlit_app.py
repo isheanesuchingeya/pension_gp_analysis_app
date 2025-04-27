@@ -591,14 +591,14 @@ plt.tight_layout()
 
 ############################################################################################################################################################
 # Group by 'administrator' and 'submission_status', then unstack to reshape for the bar chart
-administrator_submission2019 = pendata_2019.groupby(['administrator', 'submission_status']).size().unstack().fillna(0)
+#administrator_submission2019 = pendata_2019.groupby(['administrator', 'submission_status']).size().unstack().fillna(0)
 
 # Plotting a bar chart (not stacked)
-administrator_submission2019.plot(kind='bar', figsize=(10, 6))
-plt.title('Submission Status by Administrator', fontsize=14)
-plt.xlabel('Administrator', fontsize=12)
-plt.ylabel('Count', fontsize=12)
-plt.xticks(rotation=45)
+#administrator_submission2019.plot(kind='bar', figsize=(10, 6))
+#plt.title('Submission Status by Administrator', fontsize=14)
+#plt.xlabel('Administrator', fontsize=12)
+#plt.ylabel('Count', fontsize=12)
+#plt.xticks(rotation=45)
 # Show the plot
 #plt.tight_layout()  # Adjust layout for better spacing
 #ic###st.pyplot(plt.gcf())
@@ -1001,21 +1001,21 @@ plt.tight_layout()
 ##################################################################################################################################################################
 
 # Group by 'administrator' and 'submission_status', then unstack to reshape for the bar chart
-administrator_submission2021 = pendata_2021.groupby(['administrator', 'submission_status']).size().unstack().fillna(0)
+#administrator_submission2021 = pendata_2021.groupby(['administrator', 'submission_status']).size().unstack().fillna(0)
 
 # Plotting a bar chart (not stacked)
-administrator_submission2021.plot(kind='bar', figsize=(10, 6))
+#administrator_submission2021.plot(kind='bar', figsize=(10, 6))
 
 # Set the title and labels
-plt.title('Submission Status by Administrator', fontsize=14)
-plt.xlabel('Administrator', fontsize=12)
-plt.ylabel('Count', fontsize=12)
+#plt.title('Submission Status by Administrator', fontsize=14)
+#plt.xlabel('Administrator', fontsize=12)
+#plt.ylabel('Count', fontsize=12)
 
 # Rotate x-axis labels for better readability
-plt.xticks(rotation=45)
+#plt.xticks(rotation=45)
 
 # Show the plot
-plt.tight_layout()  # Adjust layout for better spacing
+#plt.tight_layout()  # Adjust layout for better spacing
 ##st.pyplot(plt.gcf())
 ##################################################################################################################################################################
 
@@ -1211,21 +1211,21 @@ plt.tight_layout()
 ##################################################################################################################################################################
 
 # Group by 'administrator' and 'submission_status', then unstack to reshape for the bar chart
-administrator_submission2022 = pendata_2022.groupby(['administrator', 'submission_status']).size().unstack().fillna(0)
+#administrator_submission2022 = pendata_2022.groupby(['administrator', 'submission_status']).size().unstack().fillna(0)
 
 # Plotting a bar chart (not stacked)
-administrator_submission2022.plot(kind='bar', figsize=(10, 6))
+#administrator_submission2022.plot(kind='bar', figsize=(10, 6))
 
 # Set the title and labels
-plt.title('Submission Status by Administrator', fontsize=14)
-plt.xlabel('Administrator', fontsize=12)
-plt.ylabel('Count', fontsize=12)
+#plt.title('Submission Status by Administrator', fontsize=14)
+#plt.xlabel('Administrator', fontsize=12)
+#plt.ylabel('Count', fontsize=12)
 
 # Rotate x-axis labels for better readability
-plt.xticks(rotation=45)
+#plt.xticks(rotation=45)
 
 # Show the plot
-plt.tight_layout()  # Adjust layout for better spacing
+#plt.tight_layout()  # Adjust layout for better spacing
 ##st.pyplot(plt.gcf())
 ##################################################################################################################################################################
 # Group by 'name_of_fund', 'sts' and 'submission_sts_', then unstack to reshape for the bar chart
@@ -1431,21 +1431,21 @@ plt.tight_layout()
 
 ##################################################################################################################################################################
 # Group by 'administrator' and 'submission_status', then unstack to reshape for the bar chart
-administrator_submission2023 = pendata_2023.groupby(['administrator', 'submission_status']).size().unstack().fillna(0)
+#administrator_submission2023 = pendata_2023.groupby(['administrator', 'submission_status']).size().unstack().fillna(0)
 
 # Plotting a bar chart (not stacked)
-administrator_submission2023.plot(kind='bar', figsize=(10, 6))
+#administrator_submission2023.plot(kind='bar', figsize=(10, 6))
 
 # Set the title and labels
-plt.title('Submission Status by Administrator', fontsize=14)
-plt.xlabel('Administrator', fontsize=12)
-plt.ylabel('Count', fontsize=12)
+#plt.title('Submission Status by Administrator', fontsize=14)
+#plt.xlabel('Administrator', fontsize=12)
+#plt.ylabel('Count', fontsize=12)
 
 # Rotate x-axis labels for better readability
-plt.xticks(rotation=45)
+#plt.xticks(rotation=45)
 
 # Show the plot
-plt.tight_layout()  # Adjust layout for better spacing
+#plt.tight_layout()  # Adjust layout for better spacing
 ##st.pyplot(plt.gcf())
 
 
