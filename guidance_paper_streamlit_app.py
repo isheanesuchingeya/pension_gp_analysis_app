@@ -139,27 +139,28 @@ with st.container():
         st.pyplot(fig)
 
     with col2:
-      st.write("### Submission Status Distribution")
-      fig, ax = plt.subplots(figsize=(6, 6))
-  
-      # Count and plot pie chart
-      counts = pendata_combined['submission_sts_'].value_counts()
-      explode = [0.1] * len(counts)  # Slightly explode all slices for clarity
-      
-      # Create pie chart with only percentages
-      counts.plot.pie(
-          autopct='%1.1f%%',  # Show percentages
-          labels=[None] * len(counts),  # Hide category labels
-          colors=['#66b3ff', '#99ff99', '#ffcc99', '#ff9999', '#ffccff'],
-          ax=ax, 
-          startangle=90,
-          explode=explode
-      )  # Ensure the parentheses are closed correctly
-      
-      ax.set_ylabel('')  # Remove the default label
-      ax.set_title('Submission Status Distribution', fontsize=14)  # Add a title
-      ax.legend(counts.index, title='Status', bbox_to_anchor=(1.05, 1), loc='upper left')  # Add legend
-      st.pyplot(fig)
+    st.write("### Submission Status Distribution")
+    fig, ax = plt.subplots(figsize=(6, 6))
+
+    # Count and plot pie chart
+    counts = pendata_combined['submission_sts_'].value_counts()
+    explode = [0.1] * len(counts)  # Slightly explode all slices for clarity
+    
+    # Create pie chart with small percentage labels
+    counts.plot.pie(
+        autopct='%1.1f%%',  # Show percentages
+        labels=[None] * len(counts),  # Hide category labels
+        colors=['#66b3ff', '#99ff99', '#ffcc99', '#ff9999', '#ffccff'],
+        ax=ax, 
+        startangle=90,
+        explode=explode,
+        textprops={'fontsize': 8}  # Set the font size of percentage labels to a smaller size
+    )
+    
+    ax.set_ylabel('')  # Remove the default label
+    ax.set_title('Submission Status Distribution', fontsize=14)  # Add a title
+    ax.legend(counts.index, title='Status', bbox_to_anchor=(1.05, 1), loc='upper left')  # Add legend
+    st.pyplot(fig)
 
 st.subheader("Assessment and Approval Status")
 with st.container():
