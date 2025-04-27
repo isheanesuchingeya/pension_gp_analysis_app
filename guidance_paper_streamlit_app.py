@@ -33,7 +33,39 @@ hide_streamlit_style = """
     </style>
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+########################
+# Initialize session state for theme if not already set
+if 'dark_theme' not in st.session_state:
+    st.session_state.dark_theme = False
 
+# Function to toggle theme
+def toggle_theme():
+    st.session_state.dark_theme = not st.session_state.dark_theme
+
+
+# Theme toggle button
+st.sidebar.button("Toggle Dark/Light Theme", on_click=toggle_theme)
+
+# Set theme based on the session state
+if st.session_state.dark_theme:
+    st.markdown("""
+    <style>
+    body {
+        background-color: #1e1e1e;
+        color: white;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+else:
+    st.markdown("""
+    <style>
+    body {
+        background-color: white;
+        color: black;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+################
 # --- SIDEBAR ---
 logo = Image.open("IPECLOGO.jpg")
 st.sidebar.image(logo, width=200)
