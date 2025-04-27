@@ -122,7 +122,8 @@ year_count_table_styled = year_count_table.style.set_table_styles(
      {'selector': 'td', 'props': [('border', '1px solid black')]},
      {'selector': 'tr', 'props': [('border', '1px solid black')]}]
 )
-#############################################################################################
+
+###############################################DISPLAY VISUALS#######################################################################################
 st.subheader("Quick Overview")
 with st.container():
     col1, col2 = st.columns(2)
