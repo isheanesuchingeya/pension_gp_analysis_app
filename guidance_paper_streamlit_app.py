@@ -44,7 +44,7 @@ def toggle_theme():
 
 # --- SIDEBAR ---
 logo = Image.open("IPECLOGO.jpg")
-st.sidebar.image(logo, width=200)
+st.sidebar.image(logo, width=250)
 st.sidebar.title("Settings ⚙️")
 st.sidebar.header("Options")
 page = st.sidebar.selectbox("Select a page (Work in Progress):", ["Home", "Data Upload", "Visualizations", "About"])
