@@ -21,8 +21,6 @@ import bcrypt
 from PIL import Image
 ###########################################################################################################################################################
                                                                   ##Display : Front End##
-#Section = st.sidebar.radio("Years", ["2019","2020","2021","2022","2023","2024"])
-
 # --- PAGE SETTINGS ---
 st.set_page_config(page_title="Pension Fund Dashboard", layout="wide", page_icon="📊")
 
@@ -37,9 +35,9 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 # --- SIDEBAR ---
-# Load and display logo
+from PIL import Image
 logo = Image.open("IPECLOGO.jpg")
-st.sidebar.image(logo, width=200)  # You can adjust width as you like
+st.sidebar.image(logo, width=200)
 st.sidebar.title("Settings ⚙️")
 st.sidebar.subheader("Upload your file")
 uploaded_file = st.sidebar.file_uploader("Upload Pension Excel File", type=["xlsx"])
@@ -55,35 +53,32 @@ st.divider()
 
 # --- Start timer at the beginning ---
 start_time = time.time()
-st.sidebar.info("⏳ Model is running... Please Dowload Your Report Once Completed.")
+st.sidebar.info("⏳ Model is running... Please download your report once completed.")
 
-###########################################################################################################################################################
-                                                                      ##Data Import & Cleaning##
-# File uploader for the user to upload the Excel file
-uploaded_file = st.file_uploader("Upload the Pension Excel file", type=["xlsx"])
+# --- LOAD DATA ---
 if uploaded_file is not None:
-    # Read the uploaded Excel file
     pendata_combined = pd.read_excel(uploaded_file)
+    pendata_combined = pendata_combined.fillna('..not populated')
+    pendata_combined = pendata_combined.clean_names()
+    pendata_combined.columns = pendata_combined.columns.str.replace("department", "drpt")
+    pendata_combined.columns = pendata_combined.columns.str.replace("status", "sts")
 
-    # Notify successful upload
     st.success("✅ File uploaded successfully!")
-
-    # You can continue with your processing logic here
-    # For example, displaying the first few rows of the DataFrame
     st.write("Sample of Imported Data")
     st.write(pendata_combined.head(3))
+
+    # Now continue your plotting, graphs, download etc
+    # st.line_chart(pendata_combined) etc.
 
 else:
     st.warning("⚠️ Please upload an Excel file to proceed.")
 
-# Replace all NaN values with '..not populated'
-pendata_combined = pendata_combined.fillna('..not populated')
+# --- End Timer at the very bottom ---
+end_time = time.time()
+elapsed_time = round(end_time - start_time, 2)
+st.sidebar.success(f"✅ Model completed in {elapsed_time} seconds! 🎉")
+st.balloons()
 
-     # Clean the column names using pyjanitor's clean_names() function
-pendata_combined = pendata_combined.clean_names()  # Clean the column names (lowercase, replace spaces with underscores)
-     # Shorten column names 
-pendata_combined.columns = pendata_combined.columns.str.replace("department", "drpt")
-pendata_combined.columns = pendata_combined.columns.str.replace("status", "sts")
 ###########################################################################################################################################################
                                                       ##Analysis##
 # List of years
