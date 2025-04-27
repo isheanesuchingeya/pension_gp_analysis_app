@@ -119,7 +119,6 @@ year_count_table_styled = year_count_table.style.set_table_styles(
      {'selector': 'td', 'props': [('border', '1px solid black')]},
      {'selector': 'tr', 'props': [('border', '1px solid black')]}]
 )
-
 #############################################################################################
 st.subheader("Quick Overview")
 with st.container():
@@ -142,20 +141,16 @@ with st.container():
     with col2:
       st.write("### Submission Status Distribution")
       fig, ax = plt.subplots(figsize=(6, 6))
-  
-      # Count and plot pie chart
       counts = pendata_combined['submission_sts_'].value_counts()
       explode = [0.1] * len(counts)  # Slightly explode all slices for clarity
-      
       # Create pie chart
       counts.plot.pie(
-          autopct='%1.1f%%',
+          autopct=None,
           colors=['#66b3ff', '#99ff99', '#ffcc99', '#ff9999', '#ffccff'],
           ax=ax, 
           startangle=90,
           explode=explode,
-          textprops={'fontsize': 12}  # Increase font size
-      )
+          textprops={'fontsize': 12}  # Increase font size)
       
       ax.set_ylabel('')  # Remove the default label
       ax.set_title('Submission Status Distribution', fontsize=14)  # Add a title
