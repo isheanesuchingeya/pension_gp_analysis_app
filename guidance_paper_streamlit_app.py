@@ -188,13 +188,14 @@ with st.container():
         st.pyplot(fig)
 
 ####################################################################################################################################
-
-pendata_combined["Expected Date of response"] = pd.to_datetime(
-    pendata_combined["Expected Date of response"], errors='coerce'
+today = pd.Timestamp.today()
+today_date = datetime.today().strftime('%d %B %Y')
+pendata_combined["expected_date_of_response"] = pd.to_datetime(
+    pendata_combined["expected_date_of_response"], errors='coerce'
 )
 
-days_past_data = pendata_combined[['Name of Fund', 'Year','Responsible Person',"Date sent to Actuarial","Date- Assessment report sent to core department", 'Expected Date of response']].copy()
-days_past_data["Days Past Due"] = (today - days_past_data["Expected Date of response"]).dt.days
+days_past_data = pendata_combined[['name_of_fund', 'year','responsible_person',"date_sent_to_actuarial","date_assessment_report_sent_to_core_drpt", 'expected_date_of_response']].copy()
+days_past_data["Days Past Due"] = (today - days_past_data["expected_date_of_response"]).dt.days
 days_past_data["Days Past Due"] = days_past_data["Days Past Due"].fillna(0).astype(int)
 filterd_days_past = days_past_data.loc[days_past_data['Days Past Due']>0]
 st.write("## Funds With Resubmission dates Past Due,(Download Now)")
