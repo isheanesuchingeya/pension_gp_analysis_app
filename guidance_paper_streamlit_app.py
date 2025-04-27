@@ -18,7 +18,6 @@ import io
 import streamlit as st
 from datetime import datetime
 import bcrypt
-import pillow as PIL
 from PIL import Image
 ###########################################################################################################################################################
                                                                   ##Display : Front End##
