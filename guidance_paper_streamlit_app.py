@@ -19,8 +19,6 @@ import streamlit as st
 from datetime import datetime
 import bcrypt
 from PIL import Image
-###########################################################################################################################################################
-                                                                  ##Display : Front End##
 # --- PAGE SETTINGS ---
 st.set_page_config(page_title="Pension Fund Dashboard", layout="wide", page_icon="📊")
 
@@ -33,7 +31,7 @@ hide_streamlit_style = """
     </style>
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
-########################
+
 # Initialize session state for theme if not already set
 if 'dark_theme' not in st.session_state:
     st.session_state.dark_theme = False
@@ -41,31 +39,17 @@ if 'dark_theme' not in st.session_state:
 # Function to toggle theme
 def toggle_theme():
     st.session_state.dark_theme = not st.session_state.dark_theme
-################
+
 # --- SIDEBAR ---
 logo = Image.open("IPECLOGO.jpg")
 st.sidebar.image(logo, width=200)
 st.sidebar.title("Settings ⚙️")
-st.sidebar.title("Navigation")
 st.sidebar.header("Options")
-page = st.sidebar.selectbox("Select a page(Work in Progress):", ["Home", "Data Upload", "Visualizations","About"])
-if page == "About":
-  st.title("About This App")
-  st.markdown("""
-    This application was developed by the **Actuarial Department Team** to provide a comprehensive update on pensions guidance paper statistics.
-    
-    **Date Developed:**  23 April 2025  
-    **Last Updated:** 27 April 2025  
-    **Version:** 1.0  
-    **Contact:** actuarial@ipec.co.zw.com
-
-    We aim to make data analysis accessible and informative for all stakeholders.
-    """)
-  #############
+page = st.sidebar.selectbox("Select a page (Work in Progress):", ["Home", "Data Upload", "Visualizations", "About"])
 
 # Theme toggle button
 if st.sidebar.button("Toggle Dark/Light Theme"):
-    toggle_theme()  # Call the toggle function
+    toggle_theme()  # Call the toggle function to change the theme state
 
 # Set theme based on the session state
 if st.session_state.dark_theme:
@@ -86,9 +70,25 @@ else:
     }
     </style>
     """, unsafe_allow_html=True)
-################
-#uploaded_file = st.sidebar.file_uploader("Upload Pension Excel File", type=["xlsx"])
+
+if page == "About":
+    st.title("About This App")
+    st.markdown("""
+    This application was developed by the **Actuarial Department Team** to provide a comprehensive update on pensions guidance paper statistics.
+    
+    **Date Developed:**  23 April 2025  
+    **Last Updated:** 27 April 2025  
+    **Version:** 1.0  
+    **Contact:** actuarial@ipec.co.zw
+
+    We aim to make data analysis accessible and informative for all stakeholders.
+    """)
+
+# Example of other functionalities
+# uploaded_file = st.sidebar.file_uploader("Upload Pension Excel File", type=["xlsx"])
 selected_year = st.sidebar.selectbox("Select Year (W.I.P)", ["All", 2019, 2020, 2021, 2022, 2023, 2024])
+
+
 
 # --- HEADER ---
 st.title("Pensions Guidance Paper Report Engine 📊")
