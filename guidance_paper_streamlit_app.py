@@ -35,8 +35,8 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 # --- SIDEBAR ---
-#logo = Image.open("IPECLOGO.jpg")
-#st.sidebar.image(logo, width=200)
+logo = Image.open("IPECLOGO.jpg")
+st.sidebar.image(logo, width=200)
 st.sidebar.title("Settings ⚙️")
 st.sidebar.subheader("Upload your file")
 #uploaded_file = st.sidebar.file_uploader("Upload Pension Excel File", type=["xlsx"])
@@ -49,7 +49,6 @@ Welcome to the Pension Monitoring System!
 Analyze submissions, assessment status, approval trends, and more.
 """)
 st.divider()
-#########################################################################
 ###########################################################################################################################################################
                                                                       ##Data Import & Cleaning##
 # File uploader for the user to upload the Excel file
@@ -60,13 +59,6 @@ if uploaded_file is not None:
 
     # Notify successful upload
     st.success("✅ File uploaded successfully!")
-
-    # Display the columns of the uploaded data
-    st.write("Columns in the uploaded data:")
-    st.write(pendata_combined.columns)
-
-    # You can continue with your processing logic here
-    # For example, displaying the first few rows of the DataFrame
     st.write(pendata_combined.head(3))
 # Replace all NaN values with '..not populated'
     pendata_combined = pendata_combined.fillna('..not populated')
