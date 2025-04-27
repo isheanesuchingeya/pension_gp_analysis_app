@@ -163,7 +163,7 @@ with st.container():
       ax.set_ylabel('')  # Remove the default label
       ax.set_title('Submission Status Distribution', fontsize=14)  # Add a title
       ax.legend(counts.index, title='Status', bbox_to_anchor=(1.05, 1), loc='upper left')  # Add legend
-      st.pyplot(fig)
+      #st.pyplot(fig)
 
 st.subheader("Assessment and Approval Status")
 with st.container():
@@ -175,7 +175,7 @@ with st.container():
         ax.set_title('Assessment Status')
         ax.set_xlabel('Assessment')
         ax.set_ylabel('Count')
-        #st.pyplot(fig)
+        ##st.pyplot(fig)
 
     with col4:
         fig, ax = plt.subplots(figsize=(8, 5))
@@ -183,7 +183,7 @@ with st.container():
         ax.set_title('Approval Status')
         ax.set_xlabel('Approval')
         ax.set_ylabel('Count')
-        st.pyplot(fig)
+        #st.pyplot(fig)
 
 #################################################################
 
@@ -248,7 +248,7 @@ plt.ylabel('Count', fontsize=12)
 plt.legend(title='Status', loc='upper right')
 plt.xticks(rotation=45)
 plt.tight_layout()
-#st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 Set the style for seaborn
 sns.set(style="whitegrid")
 
@@ -280,7 +280,7 @@ if all(status in status_table.columns for status in filtered_status_types):
                     fontsize=10, color='black', 
                     xytext=(0, 5), textcoords='offset points')
     plt.tight_layout()
-    #ic##st.pyplot(plt.gcf())
+    #ic###st.pyplot(plt.gcf())
 else:
     print("Some of the status columns are missing from the DataFrame.")
 ############################################################################################################################################################
@@ -319,7 +319,7 @@ for i, status in enumerate(statuses):
         plt.text(index[j] + i * bar_width, count + 0.5,  # Offset for the text
                  f'{count}', ha='center', va='bottom', fontsize=10)
 plt.tight_layout()
-#ic##st.pyplot(plt.gcf())
+#ic###st.pyplot(plt.gcf())
 
 ############################################################################################################################################################
 # Initialize an empty dictionary to store counts for each status
@@ -384,7 +384,7 @@ plt.legend(title='Status', loc='upper right')
 plt.xticks(rotation=45)
 # Show the plot
 plt.tight_layout()
-###st.pyplot(plt.gcf())
+####st.pyplot(plt.gcf())
 ############################################################################################################################################################
 # Set the style for seaborn
 sns.set(style="whitegrid")
@@ -418,7 +418,7 @@ if all(status in assessmentstatus_table.columns for status in filtered_assessmen
                     xytext=(0, 5), textcoords='offset points')
  # Show the plot
     plt.tight_layout()
-   #ic# #st.pyplot(plt.gcf())
+   #ic# ##st.pyplot(plt.gcf())
 else:
     print("Some of the status columns are missing from the DataFrame.")
 
@@ -491,7 +491,7 @@ if all(status in approvalstatus_table.columns for status in filtered_approvalsta
                     xytext=(0, 5), textcoords='offset points')
  # Show the plot
     plt.tight_layout()
-    #st.pyplot(plt.gcf())
+    ##st.pyplot(plt.gcf())
 else:
     print("Some of the approval status columns are missing from the DataFrame.")
 
@@ -544,7 +544,7 @@ table = ax.table(cellText=submission_status_table2019.values, colLabels=submissi
 for (i, j), cell in table.get_celld().items():
     cell.set_edgecolor('black')  # Set the border color
     cell.set_linewidth(1)        # Set the border thickness
-#ic# #st.pyplot(plt.gcf())
+#ic# ##st.pyplot(plt.gcf())
 
 ############################################################################################################################################################
 
@@ -560,7 +560,7 @@ for bar in bars:
     ax.text(bar.get_x() + bar.get_width()/2, yval + 0.5, str(int(yval)), ha='center', va='bottom', fontsize=12)
 # Show the plot
 plt.tight_layout()
-#ic##st.pyplot(plt.gcf())
+#ic###st.pyplot(plt.gcf())
 
 ############################################################################################################################################################
 # Pie chart
@@ -569,7 +569,7 @@ pendata_2019['submission_status'].value_counts().plot(kind='pie', autopct='%1.1f
 plt.title('Submission Status Distribution (2019)', fontsize=14)
 plt.ylabel('')  # Remove the ylabel
 plt.tight_layout()
-#ic##st.pyplot(plt.gcf())
+#ic###st.pyplot(plt.gcf())
 
 ############################################################################################################################################################
 # Group by 'administrator' and 'submission_status', then unstack to reshape for the bar chart
@@ -583,7 +583,7 @@ plt.ylabel('Count', fontsize=12)
 plt.xticks(rotation=45)
 # Show the plot
 #plt.tight_layout()  # Adjust layout for better spacing
-#ic##st.pyplot(plt.gcf())
+#ic###st.pyplot(plt.gcf())
 
 ############################################################################################################################################################
 # Group by 'name_of_fund', 'sts' and 'submission_sts_', then unstack to reshape for the bar chart
@@ -601,7 +601,7 @@ for container in ax.containers:
     ax.bar_label(container, label_type='edge', fontsize=10, color='black')
 # Show the plot
 #plt.tight_layout()  # Adjust layout for better spacing
-##st.pyplot(plt.gcf())
+###st.pyplot(plt.gcf())
 
 ############################################################################################################################################################
 # Classify the assessment status in 2019
@@ -636,7 +636,7 @@ for bar in bars:
              f'{int(bar.get_height())}', ha='center', fontsize=10)
 # Show the plot
 #plt.tight_layout()
-##st.pyplot(plt.gcf())
+###st.pyplot(plt.gcf())
 ############################################################################################################################################################
 # Get the counts for each assessment status category
 assessment_status_counts_2019 = pendata_2019['assessment_status_category'].value_counts()
@@ -650,7 +650,7 @@ plt.pie(assessment_status_counts_2019, labels=assessment_status_counts_2019.inde
 plt.title('Assessment Status Distribution (2019)', fontsize=14)
 # Show the plot
 #plt.tight_layout()
-##st.pyplot(plt.gcf())
+###st.pyplot(plt.gcf())
 ############################################################################################################################################################
 
 # Count the occurrences of each report location
@@ -705,11 +705,11 @@ for bar in bars:
 plt.xticks(rotation=45, ha='right')
 # Show the plot
 #plt.tight_layout()
-##st.pyplot(plt.gcf())
+###st.pyplot(plt.gcf())
 plt.figure(figsize=(8, 8))
 plt.pie(approval_status_counts2019['Count'], labels=approval_status_counts2019['Approval Status'], autopct='%1.1f%%', colors=['#ff9999', '#66b3ff', '#99ff99'])
 plt.title('Approval Status Distribution (2019)', fontsize=14)
-##st.pyplot(plt.gcf())
+###st.pyplot(plt.gcf())
 
 ############################################################################################################################################################
 
@@ -756,7 +756,7 @@ table = ax.table(cellText=submission_status_table2020.values, colLabels=submissi
 for (i, j), cell in table.get_celld().items():
     cell.set_edgecolor('black')  # Set the border color
     cell.set_linewidth(1)        # Set the border thickness
-##st.pyplot(plt.gcf())
+###st.pyplot(plt.gcf())
 fig, ax = plt.subplots(figsize=(6, 3))
 ax.axis('tight')
 ax.axis('off')
@@ -765,7 +765,7 @@ table = ax.table(cellText=submission_status_table2020.values, colLabels=submissi
 for (i, j), cell in table.get_celld().items():
     cell.set_edgecolor('black')  # Set the border color
     cell.set_linewidth(1)        # Set the border thickness
-##st.pyplot(plt.gcf())
+###st.pyplot(plt.gcf())
 
 ############################################################################################################################################################
 
@@ -784,7 +784,7 @@ for bar in bars:
     ax.text(bar.get_x() + bar.get_width()/2, yval + 0.5, str(int(yval)), ha='center', va='bottom', fontsize=12)
 # Show the plot
 plt.tight_layout()
-##st.pyplot(plt.gcf())
+###st.pyplot(plt.gcf())
 
 ############################################################################################################################################################
 # Pie chart
@@ -793,7 +793,7 @@ pendata_2020['submission_status'].value_counts().plot(kind='pie', autopct='%1.1f
 plt.title('Submission Status Distribution (2020)', fontsize=14)
 plt.ylabel('')  # Remove the ylabel
 plt.tight_layout()
-##st.pyplot(plt.gcf())
+###st.pyplot(plt.gcf())
 
 # Classify the assessment status in 2020
 pendata_2020['assessment_status_category'] = pendata_2020['assessment_sts'].apply(
@@ -830,7 +830,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-##st.pyplot(plt.gcf())
+###st.pyplot(plt.gcf())
 ############################################################################################################################################################
 # Plotting the pie chart for assessment status distribution
 plt.figure(figsize=(8, 8))
@@ -842,7 +842,7 @@ plt.title('Assessment Status Distribution (2020)', fontsize=14)
 
 # Show the plot
 plt.tight_layout()
-##st.pyplot(plt.gcf())
+###st.pyplot(plt.gcf())
 
 ############################################################################################################################################################
 # Count the occurrences of each report location
@@ -942,7 +942,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-#st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
 
 # In[90]:
@@ -1001,7 +1001,7 @@ table = ax.table(cellText=submission_status_table2021.values, colLabels=submissi
 for (i, j), cell in table.get_celld().items():
     cell.set_edgecolor('black')  # Set the border color
     cell.set_linewidth(1)        # Set the border thickness
-#st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
 
 # In[95]:
@@ -1026,7 +1026,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-#st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
 
 # In[96]:
@@ -1038,7 +1038,7 @@ pendata_2021['submission_status'].value_counts().plot(kind='pie', autopct='%1.1f
 plt.title('Submission Status Distribution (2021)', fontsize=14)
 plt.ylabel('')  # Remove the ylabel
 plt.tight_layout()
-#st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
 
 # In[97]:
@@ -1060,7 +1060,7 @@ plt.xticks(rotation=45)
 
 # Show the plot
 plt.tight_layout()  # Adjust layout for better spacing
-#st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
 
 # In[98]:
@@ -1086,7 +1086,7 @@ for container in ax.containers:
 
 # Show the plot
 plt.tight_layout()  # Adjust layout for better spacing
-#st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
 
 # In[99]:
@@ -1134,7 +1134,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-#st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
 
 # In[101]:
@@ -1150,7 +1150,7 @@ plt.title('Assessment Status Distribution (2021)', fontsize=14)
 
 # Show the plot
 plt.tight_layout()
-#st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
 
 # In[102]:
@@ -1228,7 +1228,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-#st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
 
 # In[105]:
@@ -1306,7 +1306,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-#st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
 
 # In[112]:
@@ -1318,7 +1318,7 @@ pendata_2022['submission_status'].value_counts().plot(kind='pie', autopct='%1.1f
 plt.title('Submission Status Distribution (2022)', fontsize=14)
 plt.ylabel('')  # Remove the ylabel
 plt.tight_layout()
-#st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
 
 # In[113]:
@@ -1340,7 +1340,7 @@ plt.xticks(rotation=45)
 
 # Show the plot
 plt.tight_layout()  # Adjust layout for better spacing
-#st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
 
 # In[114]:
@@ -1366,7 +1366,7 @@ for container in ax.containers:
 
 # Show the plot
 plt.tight_layout()  # Adjust layout for better spacing
-#st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
 
 # In[115]:
@@ -1414,7 +1414,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-#st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
 
 # In[117]:
@@ -1430,7 +1430,7 @@ plt.title('Assessment Status Distribution (2022)', fontsize=14)
 
 # Show the plot
 plt.tight_layout()
-#st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
 
 # In[118]:
@@ -1510,7 +1510,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-#st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
 
 # In[121]:
@@ -1569,7 +1569,7 @@ table = ax.table(cellText=submission_status_table2023.values, colLabels=submissi
 for (i, j), cell in table.get_celld().items():
     cell.set_edgecolor('black')  # Set the border color
     cell.set_linewidth(1)        # Set the border thickness
-#st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
 
 # In[127]:
@@ -1594,7 +1594,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-#st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
 
 
@@ -1604,7 +1604,7 @@ pendata_2023['submission_status'].value_counts().plot(kind='pie', autopct='%1.1f
 plt.title('Submission Status Distribution (2023)', fontsize=14)
 plt.ylabel('')  # Remove the ylabel
 plt.tight_layout()
-#st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
 
 
@@ -1624,7 +1624,7 @@ plt.xticks(rotation=45)
 
 # Show the plot
 plt.tight_layout()  # Adjust layout for better spacing
-#st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
 
 # Group by 'name_of_fund', 'sts' and 'submission_sts_', then unstack to reshape for the bar chart
@@ -1647,7 +1647,7 @@ for container in ax.containers:
 
 # Show the plot
 plt.tight_layout()  # Adjust layout for better spacing
-#st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
 
 
@@ -1690,7 +1690,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-#st.pyplot(plt.gcf())
+##st.pyplot(plt.gcf())
 
 
 
@@ -1766,7 +1766,7 @@ for bar in bars:
 
 # Show the plot
 plt.tight_layout()
-##st.pyplot(plt.gcf())
+###st.pyplot(plt.gcf())
 
 
 ################################################################ Report Generation ##########################################################################
