@@ -75,7 +75,7 @@ else:
 # --- Start timer at the beginning ---
 start_time = time.time()
 st.sidebar.info("⏳ Model is running... Please download your report once completed.")
-st.sidebar.spinner("Running analysis..."):
+st.sidebar.spinner("Running analysis...")
 
 # List of years
 pensionyears_list = [2019, 2020, 2021, 2022, 2023]
