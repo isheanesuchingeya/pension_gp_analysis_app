@@ -18,7 +18,7 @@ import io
 import streamlit as st
 from datetime import datetime
 import bcrypt
-from PIL import Image
+#from PIL import Image
 ###########################################################################################################################################################
                                                                   ##Display : Front End##
 # --- PAGE SETTINGS ---
@@ -35,11 +35,11 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 # --- SIDEBAR ---
-logo = Image.open("IPECLOGO.jpg")
-st.sidebar.image(logo, width=200)
+#logo = Image.open("IPECLOGO.jpg")
+#st.sidebar.image(logo, width=200)
 st.sidebar.title("Settings ⚙️")
 st.sidebar.subheader("Upload your file")
-uploaded_file = st.sidebar.file_uploader("Upload Pension Excel File", type=["xlsx"])
+#uploaded_file = st.sidebar.file_uploader("Upload Pension Excel File", type=["xlsx"])
 #selected_year = st.sidebar.selectbox("Select Year", ["All", 2019, 2020, 2021, 2022, 2023, 2024])
 
 # --- HEADER ---
@@ -51,6 +51,7 @@ Analyze submissions, assessment status, approval trends, and more.
 st.divider()
 
 # --- LOAD DATA ---
+uploaded_file = st.file_uploader("Upload Pension Excel File", type=["xlsx"])
 if uploaded_file is not None:
     pendata_combined = pd.read_excel(uploaded_file)
     pendata_combined = pendata_combined.fillna('..not populated')
