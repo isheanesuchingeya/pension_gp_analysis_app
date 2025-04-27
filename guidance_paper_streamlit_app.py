@@ -53,18 +53,13 @@ if uploaded_file is not None:
     # Notify successful upload
     st.success("✅ File uploaded successfully!")
 
-    # Display the columns of the uploaded data
-    st.write("Columns in the uploaded data:")
-    st.write(pendata_combined.columns)
-
     # You can continue with your processing logic here
     # For example, displaying the first few rows of the DataFrame
+    st.write("Sample of Imported Data")
     st.write(pendata_combined.head(3))
 
 else:
     st.warning("⚠️ Please upload an Excel file to proceed.")
-
-
 
 # Replace all NaN values with '..not populated'
 pendata_combined = pendata_combined.fillna('..not populated')
@@ -125,9 +120,7 @@ year_count_table_styled = year_count_table.style.set_table_styles(
      {'selector': 'tr', 'props': [('border', '1px solid black')]}]
 )
 
-###########################################################
 #############################################################################################
-# --- DASHBOARD CONTENT ---
 st.subheader("Quick Overview")
 with st.container():
     col1, col2 = st.columns(2)
@@ -147,12 +140,21 @@ with st.container():
         st.pyplot(fig)
 
     with col2:
-        st.write("### Submission Status Distribution")
-        fig, ax = plt.subplots(figsize=(6, 6))
-        pendata_combined['submission_sts_'].value_counts().plot.pie(
-            autopct='%1.1f%%', colors=['#66b3ff', '#99ff99', '#ffcc99'], ax=ax, startangle=90)
-        ax.set_ylabel('')
-        st.pyplot(fig)
+      st.write("### Submission Status Distribution")
+      fig, ax = plt.subplots(figsize=(6, 6))
+      
+      # Create a pie chart with better formatting
+      pendata_combined['submission_sts_'].value_counts().plot.pie(
+          autopct='%1.1f%%', 
+          colors=['#66b3ff', '#99ff99', '#ffcc99', '#ff9999', '#ffccff'],  # Add more colors if needed
+          ax=ax, 
+          startangle=90,
+          textprops={'fontsize': 12}  # Increase font size for better readability
+      )
+    
+    ax.set_ylabel('')  # Remove the default label
+    ax.set_title('Submission Status Distribution', fontsize=14)  # Add a title
+    st.pyplot(fig)
 
 st.subheader("Assessment and Approval Status")
 with st.container():
