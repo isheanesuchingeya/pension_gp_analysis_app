@@ -68,12 +68,6 @@ if uploaded_file is not None:
     # You can continue with your processing logic here
     # For example, displaying the first few rows of the DataFrame
     st.write(pendata_combined.head(3))
-
-else:
-    st.warning("⚠️ Please upload an Excel file to proceed.")
-
-
-
 # Replace all NaN values with '..not populated'
 pendata_combined = pendata_combined.fillna('..not populated')
 
@@ -82,6 +76,9 @@ pendata_combined = pendata_combined.clean_names()  # Clean the column names (low
      # Shorten column names 
 pendata_combined.columns = pendata_combined.columns.str.replace("department", "drpt")
 pendata_combined.columns = pendata_combined.columns.str.replace("status", "sts")
+
+else:
+    st.warning("⚠️ Please upload an Excel file to proceed.")
 ###########################################################################################################################################################
                                                       ##Analysis##
 # --- Start timer at the beginning ---
