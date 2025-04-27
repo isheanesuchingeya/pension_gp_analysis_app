@@ -126,6 +126,57 @@ year_count_table_styled = year_count_table.style.set_table_styles(
 
 ###############################################DISPLAY VISUALS#######################################################################################
 st.subheader("Quick Overview")
+
+#################################################################################
+st.write("Overall Stats")
+# Initialize an empty dictionary to store counts for each status
+status_counts = {}
+
+# List of status types we're interested in
+status_types = ['Done', 'Partial', 'Pending', 'Troubled', 'Dissolution', 'New fund', 'exemption']
+
+# Loop through each year and count the occurrences of each status
+for year in pendata_combined['year'].unique():
+    year_data = pendata_combined[pendata_combined['year'] == year]
+    
+    # Initialize a dictionary to store counts for this year
+    year_status_counts = {
+        'Year': year,
+        'Submitted': len(year_data[year_data['submission_sts_'] == 'Done']),
+        'Partial': len(year_data[year_data['submission_sts_'] == 'Partial']),
+        'Pending': len(year_data[year_data['submission_sts_'] == 'Pending']),
+        'Dissolution': len(year_data[year_data['submission_sts_'] == 'Dissolution']),
+        'New fund': len(year_data[year_data['submission_sts_'] == 'New fund']),
+        'Exemption': len(year_data[year_data['submission_sts_'] == 'exemption']),
+        'Troubled': len(year_data[year_data['submission_sts_'] == 'Troubled']),
+        'Other': len(year_data[~year_data['submission_sts_'].isin(status_types)])
+    }
+    
+    status_counts[year] = year_status_counts
+
+# Convert the status_counts dictionary to a DataFrame
+status_table = pd.DataFrame(status_counts).T  # .T to transpose the dictionary to a DataFrame
+# Reset index and drop the default index column that is added when creating a DataFrame
+status_table = status_table.reset_index(drop=True)
+
+# Replace NaN values with 0
+status_table = status_table.fillna(0)
+
+# Convert all columns to integers (whole numbers)
+status_table = status_table.astype(int)
+# Remove the row where all values are zero
+status_table = status_table[(status_table != 0).any(axis=1)]
+
+# Add borders to the table
+status_table_styled = status_table.style.set_table_styles(
+    [{'selector': 'table', 'props': [('border', '1px solid black')]},
+     {'selector': 'th', 'props': [('border', '1px solid black')]},
+     {'selector': 'td', 'props': [('border', '1px solid black')]},
+     {'selector': 'tr', 'props': [('border', '1px solid black')]}]
+)
+st.write(status_table_styled)
+
+############################################################################################################3
 with st.container():
     col1, col2 = st.columns(2)
 
