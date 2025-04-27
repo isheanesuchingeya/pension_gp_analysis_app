@@ -175,7 +175,93 @@ status_table_styled = status_table.style.set_table_styles(
      {'selector': 'tr', 'props': [('border', '1px solid black')]}]
 )
 st.write(status_table_styled)
+#############################################################################################################
+############################################################################################################################################################
+# Initialize an empty dictionary to store counts for each status
+approvalstatus_counts = {}
+# List of status types we're interested in
+approvalstatus_types = ['Yes', 'No', 'pending']
+# Loop through each year and count the occurrences of each status
+for year in pendata_combined['year'].unique():
+    year_data = pendata_combined[pendata_combined['year'] == year]
+     # Initialize a dictionary to store counts for this year
+    year_approvalstatus_counts = {
+        'Year': year,
+        'Approved': len(year_data[year_data['approval_sts'] == 'Yes']),
+        'Non approved': len(year_data[year_data['approval_sts'] == 'No']),  
+        'Pending': len(year_data[year_data['approval_sts'] == 'pending']),  
+        'Not populated': len(year_data[~year_data['approval_sts'].isin(approvalstatus_types)]),  # Corrected to check if status is not in the list
+    }
+    # Store the counts for this year
+    approvalstatus_counts[year] = year_approvalstatus_counts
+# Convert the approvalstatus_counts dictionary to a DataFrame
+approvalstatus_table = pd.DataFrame(approvalstatus_counts).T  # .T to transpose the dictionary to a DataFrame
+# Reset index and drop the default index column that is added when creating a DataFrame
+approvalstatus_table = approvalstatus_table.reset_index(drop=True)
+# Replace NaN values with 0
+approvalstatus_table = approvalstatus_table.fillna(0)
+# Convert all columns to integers (whole numbers)
+approvalstatus_table = approvalstatus_table.astype(int)
+#Remove rows where 'Year' is 0 (i.e., blank rows)
+approvalstatus_table = approvalstatus_table[approvalstatus_table['Year'] != 0]
+# Remove the row where all values are zero
+approvalstatus_table = approvalstatus_table[(approvalstatus_table != 0).any(axis=1)]
+# Add borders to the table for better visibility
+approvalstatus_table_styled = approvalstatus_table.style.set_table_styles(
+    [{'selector': 'table', 'props': [('border', '1px solid black')]},
+     {'selector': 'th', 'props': [('border', '1px solid black')]},
+     {'selector': 'td', 'props': [('border', '1px solid black')]},
+     {'selector': 'tr', 'props': [('border', '1px solid black')]}]
+)
+# Set the style for seaborn
+sns.set(style="whitegrid")
+# Filter the status types to include 'Approved', 'Non approved', and 'Not yet Assessed'
+filtered_approvalstatus_types = ['Approved', 'Non approved','Pending', 'Not populated']  # Ensure this matches the column names exactly
+# Ensure the columns exist before proceeding
+if all(status in approvalstatus_table.columns for status in filtered_approvalstatus_types):
+    # Melt the DataFrame to long format, but only keep the filtered statuses
+    approvalstatus_table_long_filtered = approvalstatus_table.melt(id_vars='Year', 
+                                                                  value_vars=filtered_approvalstatus_types, 
+                                                                  var_name='Status', 
+                                                                  value_name='Count')
 
+  ############################################################################################################################################################
+    # Create the bar plot
+    plt.figure(figsize=(12, 8))
+    ax = sns.barplot(data=approvalstatus_table_long_filtered, x='Year', y='Count', hue='Status', 
+                     palette=['#1f77b4', '#ff7f0e', '#2ca02c','#d62728',])  # Adjusted the palette to three colors
+    plt.title('Approval Status Counts for Approved, Non Approved,Pending and Not populated', fontsize=16)
+    plt.xlabel('Year', fontsize=12)
+    plt.ylabel('Count', fontsize=12)
+    plt.legend(title='Status', loc='upper right')
+    plt.xticks(rotation=45)
+    for p in ax.patches:
+        ax.annotate(f'{p.get_height()}', 
+                    (p.get_x() + p.get_width() / 2., p.get_height()), 
+                    ha='center', va='center', 
+                    fontsize=10, color='black', 
+                    xytext=(0, 5), textcoords='offset points')
+    plt.tight_layout()
+    st.pyplot(plt.gcf())
+else:
+    print("Some of the approval status columns are missing from the DataFrame.")
+
+
+approvalstatus_table['Growth (%)'] = approvalstatus_table['Approved'].pct_change() * 100
+# Replace NaN in YoY Growth with 0 before formatting
+approvalstatus_table['Growth (%)'] = approvalstatus_table['Growth (%)'].fillna(0)
+approvalstatus_table['Proportion Approved'] = approvalstatus_table['Approved'] / approvalstatus_table['Approved'].sum()
+sns.barplot(data=approvalstatus_table, x='Year', y='Proportion Approved', color='blue')
+
+# Loop through each column to handle NaN replacement
+for col in pendata_combined.columns:
+    # Check if the column can be converted to numeric
+    if pd.api.types.is_numeric_dtype(pendata_combined[col]):
+        # Fill NaN in numeric columns with 0
+        pendata_combined[col].fillna(0, inplace=True)
+    else:
+        # Fill NaN in non-numeric columns with 'Not Populated'
+        pendata_combined[col].fillna('Not Populated', inplace=True)
 ############################################################################################################3
 with st.container():
     col1, col2 = st.columns(2)
@@ -509,100 +595,7 @@ if all(status in assessmentstatus_table.columns for status in filtered_assessmen
 else:
     print("Some of the status columns are missing from the DataFrame.")
 
-############################################################################################################################################################
-# Initialize an empty dictionary to store counts for each status
-approvalstatus_counts = {}
-# List of status types we're interested in
-approvalstatus_types = ['Yes', 'No', 'pending']
-# Loop through each year and count the occurrences of each status
-for year in pendata_combined['year'].unique():
-    year_data = pendata_combined[pendata_combined['year'] == year]
-     # Initialize a dictionary to store counts for this year
-    year_approvalstatus_counts = {
-        'Year': year,
-        'Approved': len(year_data[year_data['approval_sts'] == 'Yes']),
-        'Non approved': len(year_data[year_data['approval_sts'] == 'No']),  
-        'Pending': len(year_data[year_data['approval_sts'] == 'pending']),  
-        'Not populated': len(year_data[~year_data['approval_sts'].isin(approvalstatus_types)]),  # Corrected to check if status is not in the list
-    }
-    # Store the counts for this year
-    approvalstatus_counts[year] = year_approvalstatus_counts
-# Convert the approvalstatus_counts dictionary to a DataFrame
-approvalstatus_table = pd.DataFrame(approvalstatus_counts).T  # .T to transpose the dictionary to a DataFrame
-# Reset index and drop the default index column that is added when creating a DataFrame
-approvalstatus_table = approvalstatus_table.reset_index(drop=True)
-# Replace NaN values with 0
-approvalstatus_table = approvalstatus_table.fillna(0)
-# Convert all columns to integers (whole numbers)
-approvalstatus_table = approvalstatus_table.astype(int)
-#Remove rows where 'Year' is 0 (i.e., blank rows)
-approvalstatus_table = approvalstatus_table[approvalstatus_table['Year'] != 0]
-# Remove the row where all values are zero
-approvalstatus_table = approvalstatus_table[(approvalstatus_table != 0).any(axis=1)]
-# Add borders to the table for better visibility
-approvalstatus_table_styled = approvalstatus_table.style.set_table_styles(
-    [{'selector': 'table', 'props': [('border', '1px solid black')]},
-     {'selector': 'th', 'props': [('border', '1px solid black')]},
-     {'selector': 'td', 'props': [('border', '1px solid black')]},
-     {'selector': 'tr', 'props': [('border', '1px solid black')]}]
-)
-# Set the style for seaborn
-sns.set(style="whitegrid")
-# Filter the status types to include 'Approved', 'Non approved', and 'Not yet Assessed'
-filtered_approvalstatus_types = ['Approved', 'Non approved','Pending', 'Not populated']  # Ensure this matches the column names exactly
-# Ensure the columns exist before proceeding
-if all(status in approvalstatus_table.columns for status in filtered_approvalstatus_types):
-    # Melt the DataFrame to long format, but only keep the filtered statuses
-    approvalstatus_table_long_filtered = approvalstatus_table.melt(id_vars='Year', 
-                                                                  value_vars=filtered_approvalstatus_types, 
-                                                                  var_name='Status', 
-                                                                  value_name='Count')
-
-  ############################################################################################################################################################
-    # Create the bar plot
-    plt.figure(figsize=(12, 8))
-    ax = sns.barplot(data=approvalstatus_table_long_filtered, x='Year', y='Count', hue='Status', 
-                     palette=['#1f77b4', '#ff7f0e', '#2ca02c','#d62728',])  # Adjusted the palette to three colors
- # Customize the plot
-    plt.title('Approval Status Counts for Approved, Non Approved,Pending and Not populated', fontsize=16)
-    plt.xlabel('Year', fontsize=12)
-    plt.ylabel('Count', fontsize=12)
-    plt.legend(title='Status', loc='upper right')
-    plt.xticks(rotation=45)
-# Add count numbers on top of each bar
-    for p in ax.patches:
-        ax.annotate(f'{p.get_height()}', 
-                    (p.get_x() + p.get_width() / 2., p.get_height()), 
-                    ha='center', va='center', 
-                    fontsize=10, color='black', 
-                    xytext=(0, 5), textcoords='offset points')
- # Show the plot
-    plt.tight_layout()
-    ##st.pyplot(plt.gcf())
-else:
-    print("Some of the approval status columns are missing from the DataFrame.")
-
-
-approvalstatus_table['Growth (%)'] = approvalstatus_table['Approved'].pct_change() * 100
-# Replace NaN in YoY Growth with 0 before formatting
-approvalstatus_table['Growth (%)'] = approvalstatus_table['Growth (%)'].fillna(0)
-
-
-approvalstatus_table['Proportion Approved'] = approvalstatus_table['Approved'] / approvalstatus_table['Approved'].sum()
-sns.barplot(data=approvalstatus_table, x='Year', y='Proportion Approved', color='blue')
-
-
-# Loop through each column to handle NaN replacement
-for col in pendata_combined.columns:
-    # Check if the column can be converted to numeric
-    if pd.api.types.is_numeric_dtype(pendata_combined[col]):
-        # Fill NaN in numeric columns with 0
-        pendata_combined[col].fillna(0, inplace=True)
-    else:
-        # Fill NaN in non-numeric columns with 'Not Populated'
-        pendata_combined[col].fillna('Not Populated', inplace=True)
-
-
+#######################2019##################################2019#########################2019###############################################
 
 # Filter data for 2019
 pendata_2019 = pendata_combined[pendata_combined['year'] == 2019]
