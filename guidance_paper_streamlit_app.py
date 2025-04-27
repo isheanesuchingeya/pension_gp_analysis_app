@@ -42,6 +42,28 @@ if 'dark_theme' not in st.session_state:
 def toggle_theme():
     st.session_state.dark_theme = not st.session_state.dark_theme
 
+################
+# --- SIDEBAR ---
+logo = Image.open("IPECLOGO.jpg")
+st.sidebar.image(logo, width=200)
+st.sidebar.title("Settings ⚙️")
+st.sidebar.subheader("Upload your file")
+st.sidebar.title("Navigation")
+st.sidebar.header("Options")
+page = st.sidebar.selectbox("Select a page(Work in Progress):", ["Home", "Data Upload", "Visualizations","About"])
+if page == "About":
+  st.title("About This App")
+  st.markdown("""
+    This application was developed by the **Actuarial Department Team** to provide a comprehensive update on pensions guidance paper statistics.
+    
+    **Date Developed:**  23 April 2025  
+    **Last Updated:** 27 April 2025  
+    **Version:** 1.0  
+    **Contact:** actuarial@ipec.co.zw.com
+
+    We aim to make data analysis accessible and informative for all stakeholders.
+    """)
+  #############
 
 # Theme toggle button
 st.sidebar.button("Toggle Dark/Light Theme", on_click=toggle_theme)
@@ -66,27 +88,6 @@ else:
     </style>
     """, unsafe_allow_html=True)
 ################
-# --- SIDEBAR ---
-logo = Image.open("IPECLOGO.jpg")
-st.sidebar.image(logo, width=200)
-st.sidebar.title("Settings ⚙️")
-st.sidebar.subheader("Upload your file")
-st.sidebar.title("Navigation")
-st.sidebar.header("Options")
-page = st.sidebar.selectbox("Select a page(Work in Progress):", ["Home", "Data Upload", "Visualizations","About"])
-if page == "About":
-  st.title("About This App")
-  st.markdown("""
-    This application was developed by the **Actuarial Department Team** to provide a comprehensive update on pensions guidance paper statistics.
-    
-    **Date Developed:**  23 April 2025  
-    **Last Updated:** 27 April 2025  
-    **Version:** 1.0  
-    **Contact:** actuarial@ipec.co.zw.com
-
-    We aim to make data analysis accessible and informative for all stakeholders.
-    """)
-  
 #uploaded_file = st.sidebar.file_uploader("Upload Pension Excel File", type=["xlsx"])
 selected_year = st.sidebar.selectbox("Select Year (W.I.P)", ["All", 2019, 2020, 2021, 2022, 2023, 2024])
 
