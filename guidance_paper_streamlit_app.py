@@ -39,6 +39,9 @@ logo = Image.open("IPECLOGO.jpg")
 st.sidebar.image(logo, width=200)
 st.sidebar.title("Settings ⚙️")
 st.sidebar.subheader("Upload your file")
+st.sidebar.title("Navigation")
+st.sidebar.header("Options")
+page = st.sidebar.selectbox("Select a page:", ["Home", "Data Upload", "Visualizations"])
 #uploaded_file = st.sidebar.file_uploader("Upload Pension Excel File", type=["xlsx"])
 selected_year = st.sidebar.selectbox("Select Year", ["All", 2019, 2020, 2021, 2022, 2023, 2024])
 
@@ -2460,7 +2463,7 @@ for year in range(2019, 2024):
     for i in range(new_dataframe.shape[0]):
         for j in range(new_dataframe.shape[1]):
             table.cell(i + 1, j).text = str(new_dataframe.iat[i, j])
-
+#
     # Add a line break between the years' data
     doc.add_paragraph('\n')
 ##################################################################################################################################################################
