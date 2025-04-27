@@ -51,18 +51,7 @@ st.divider()
 
 # --- Start timer at the beginning ---
 start_time = time.time()
-st.sidebar.info("⏳ Model is running... Please wait.")
-
-# --- Your full model/code runs here ---
-# Example: 
-time.sleep(10)  # simulate heavy model running
-
-# --- End timer after everything ---
-end_time = time.time()
-elapsed_time = round(end_time - start_time, 2)
-
-st.sidebar.success(f"✅ Model completed in {elapsed_time} seconds! 🎉")
-st.balloons()
+st.sidebar.info("⏳ Model is running... Please Dowload Your Report Once Completed.")
 
 ###########################################################################################################################################################
                                                                       ##Data Import & Cleaning##
@@ -2425,3 +2414,10 @@ st.download_button(
     file_name="Summary_Statistics_2019_2023_with_detailed_graphs.docx",
     mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
 )
+
+# --- End timer after everything ---
+end_time = time.time()
+elapsed_time = round(end_time - start_time, 2)
+
+st.sidebar.success(f"✅ Model completed in {elapsed_time} seconds! 🎉")
+st.balloons()
