@@ -152,7 +152,7 @@ for year in pendata_combined['year'].unique():
         'Other': len(year_data[~year_data['submission_sts_'].isin(status_types)])
     }
     
-    status_counts[year] = year_status_counts
+  status_counts[year] = year_status_counts
 
 # Convert the status_counts dictionary to a DataFrame
 status_table = pd.DataFrame(status_counts).T  # .T to transpose the dictionary to a DataFrame
@@ -175,7 +175,6 @@ status_table_styled = status_table.style.set_table_styles(
      {'selector': 'tr', 'props': [('border', '1px solid black')]}]
 )
 st.write(status_table_styled)
-#############################################################################################################
 ############################################################################################################################################################
 # Initialize an empty dictionary to store counts for each status
 approvalstatus_counts = {}
@@ -322,17 +321,27 @@ with st.container():
       ax.legend(counts.index, title='Status', bbox_to_anchor=(1.05, 1), loc='upper left')  # Add legend
       st.pyplot(fig)
 
-st.subheader("Assessment and Approval Status")
+st.subheader("Assessment & Approval Status")
 with st.container():
     col3, col4 = st.columns(2)
 
     with col3:
-        fig, ax = plt.subplots(figsize=(8, 5))
-        sns.countplot(data=pendata_combined, x='assessment_sts', palette='pastel', ax=ax)
-        ax.set_title('Assessment Status')
-        ax.set_xlabel('Assessment')
-        ax.set_ylabel('Count')
-        st.pyplot(fig)
+        plt.figure(figsize=(12, 8))
+        ax = sns.barplot(data=approvalstatus_table_long_filtered, x='Year', y='Count', hue='Status', 
+                         palette=['#1f77b4', '#ff7f0e', '#2ca02c','#d62728',])  # Adjusted the palette to three colors
+        plt.title('Approval Status Counts for Approved, Non Approved,Pending and Not populated', fontsize=16)
+        plt.xlabel('Year', fontsize=12)
+        plt.ylabel('Count', fontsize=12)
+        plt.legend(title='Status', loc='upper right')
+        plt.xticks(rotation=45)
+        for p in ax.patches:
+            ax.annotate(f'{p.get_height()}', 
+                        (p.get_x() + p.get_width() / 2., p.get_height()), 
+                        ha='center', va='center', 
+                        fontsize=10, color='black', 
+                        xytext=(0, 5), textcoords='offset points')
+        plt.tight_layout()
+        st.pyplot(plt.gcf())
 
     with col4:
         fig, ax = plt.subplots(figsize=(8, 5))
@@ -341,7 +350,6 @@ with st.container():
         ax.set_xlabel('Approval')
         ax.set_ylabel('Count')
         st.pyplot(fig)
-
 ####################################################################################################################################
 today = pd.Timestamp.today()
 today_date = datetime.today().strftime('%d %B %Y')
