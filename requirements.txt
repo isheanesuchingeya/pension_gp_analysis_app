@@ -7,4 +7,4 @@ matplotlib
 seaborn
 python-docx
 bcrypt
-pillow
+#pillow
